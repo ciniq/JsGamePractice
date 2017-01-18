@@ -1,65 +1,26 @@
-var Ball = function(ctx, x, y){
+var Ball = function(){
+    Cirlce.apply(this, arguments);
 
-    this.ctx = ctx;
-
-    this.Y = x;
-    this.X = y;
     this.size = 5;
-
     var rand = Math.round(Math.random()*10);
-    this.speed = rand;
+    var acc = rand/10;
+    acc = 0.1 >= acc ? 0.2:acc;
+
+
+    this.X = this.ctx.canvas.width * Math.random();
+    this.Y = this.ctx.canvas.height * Math.random();
 
     // in px/sec
-    this.VX = Math.random() > 0.5 ? this.speed : (0-this.speed);
-    this.VY = Math.random() > 0.5 ? this.speed : (0-this.speed);
+    this.AX = Math.random() > 0.5 ? acc : (0-acc);
+    this.AY = Math.random() > 0.5 ? acc : (0-acc);
 
     this.backgrounds = ['green', 'blue', 'purple', 'red', 'black', 'yellow', 'grey', 'brown', 'magenta', 'lightgrey'];
-    this.background = this.backgrounds[rand];
+    this.background = (undefined !== this.backgrounds[rand]?this.backgrounds[rand]:'black');
+
+    console.log(this.AX, this.AY, this.background)
     return this;
 };
 
-Ball.prototype.setPosition = function(x, y){
-    this.X = x;
-    this.Y = y;
-    return this;
-};
-
-Ball.prototype.getPosition = function(){
-    return {
-        x: this.X,
-        y: this.Y
-    };
-};
-
-Ball.prototype.draw = function(){
-    this.ctx.beginPath();
-    this.ctx.arc(this.X,this.Y,this.size,0,Math.PI*2,true);
-    this.ctx.fillStyle = this.background;
-    this.ctx.stroke();
-    this.ctx.fill();
-    return this;
-};
-
-Ball.prototype.requestPosition = function(delta){
-
-    var projectedX = this.X + ((this.VX * (1 + delta/100))/10),
-        projectedY = this.Y + ((this.VY * (1 + delta/100))/10);
-
-    return {
-        x: projectedX,
-        y: projectedY
-    }
-};
-
-Ball.prototype.onCollision = function(dir){
-
-    if (dir == 'X'){
-        this.VX = Math.round((0 < this.VX ? 0-this.speed : this.speed));
-    }
-
-    if (dir == 'Y'){
-        this.VY = Math.round((0 < this.VY ? 0-this.speed : this.speed));
-    }
-
-    return this;
-};
+// inherit from characterBase
+Ball.prototype = Cirlce.prototype;
+Ball.prototype.constructor = Ball;

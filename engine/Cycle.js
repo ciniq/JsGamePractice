@@ -84,10 +84,10 @@ Cycle.prototype.start = function(){
         }
 
         if (new Date().getTime() - me.logicDelta > 50 ) {
-            me.logicLoop.call(me.scope, this.delta);
+            me.logicLoop.call(me.scope, (this.delta/1000));
         }
 
-        me.drawLoop.call(me.scope, this.delta);
+        me.drawLoop.call(me.scope, (this.delta/1000));
         this.delta = time;
         me.start.call(me);
     });
