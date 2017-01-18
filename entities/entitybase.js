@@ -12,13 +12,13 @@ var EntityBase = function(ctx, x, y){
 
     // in px/sec
     this.VX = this.VY = 0;
-    this.VXmax = this.VYmax = 200;
+    this.VXmax = this.VYmax = 300;
 
     this.background = 'black';
 
     this.setPosition = function(x, y){
-        this.X = x;
-        this.Y = y;
+        this.X = Math.round(x);
+        this.Y = Math.round(y);
         return this;
     };
 
@@ -27,6 +27,16 @@ var EntityBase = function(ctx, x, y){
             x: this.X,
             y: this.Y
         };
+    };
+
+    this.accelerate = function(x, y){
+        if (x){
+            this.AX = (this.AX < 1 ? this.AX+0.03 : 1);
+        }
+
+        if (y){
+            this.AY = (this.AY < 1 ? this.AY+0.03 : 1);
+        }
     };
 
     this.draw = function(){
@@ -40,8 +50,8 @@ var EntityBase = function(ctx, x, y){
 
         // Distance = speed * delta
         return {
-            x: this.X + Math.round((this.dirX ? this.VX : 0-this.VX)*delta),
-            y: this.Y + Math.round((this.dirY ? this.VY : 0-this.VY)*delta)
+            x: this.X + ((this.dirX ? this.VX : 0-this.VX)*delta),
+            y: this.Y + ((this.dirY ? this.VY : 0-this.VY)*delta)
         };
     };
 
