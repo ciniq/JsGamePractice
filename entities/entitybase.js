@@ -1,4 +1,4 @@
-var EntityBase = function(ctx, x, y){
+const EntityBase = function(ctx, x, y){
     this.ctx = ctx;
 
     this.X = x;

@@ -1,4 +1,4 @@
-var Cirlce = function(){
+const Cirlce = function(){
     EntityBase.apply(this, arguments);
 
     this.draw = function(){

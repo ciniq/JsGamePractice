@@ -2,10 +2,10 @@
  * fallback shizzle if there is no support
  */
 (function() {
-    var lastTime = 0,
+    let lastTime = 0,
         vendors = ['webkit', 'moz'];
 
-    for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+    for(let x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
         window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
         window.cancelAnimationFrame =
             window[vendors[x]+'CancelAnimationFrame'] || window[vendors[x]+'CancelRequestAnimationFrame'];
@@ -13,7 +13,7 @@
 
     if (!window.requestAnimationFrame)
         window.requestAnimationFrame = function(callback, element) {
-            var currTime = new Date().getTime(),
+            let currTime = new Date().getTime(),
                 timeToCall = Math.max(0, 16 - (currTime - lastTime)),
                 id = window.setTimeout(function() { callback(currTime + timeToCall); },
                 timeToCall);
@@ -28,7 +28,7 @@
 }());
 
 
-var Cycle = function(scope){
+let Cycle = function(scope){
     this.scope = scope;
     this.interval = undefined;
     this.drawLoop = function(){};
@@ -61,7 +61,7 @@ Cycle.prototype.setDrawLoop = function(fn){
 };
 
 Cycle.prototype.start = function(){
-    var me = this;
+    const me = this;
 
     this.interval = window.requestAnimationFrame(function(time){
         if (!this.delta)
@@ -78,7 +78,7 @@ Cycle.prototype.start = function(){
             me.frames++;
             if (new Date().getTime() - me.fpsDelta > 500 )
             {
-                me.currentFps = (me.frames * 2)
+                me.currentFps = (me.frames * 2);
                 me.fpsCounter.innerHTML = 'fps: '+ me.currentFps + ' delta: ' + (Math.round(this.delta*100)/100)+'ms';
                 me.fpsDelta = new Date().getTime();
                 me.frames = 0;
