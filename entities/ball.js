@@ -1,7 +1,7 @@
 var Ball = function(){
     Cirlce.apply(this, arguments);
 
-
+    //randomise the ball
     var rand = Math.round(Math.random()*10);
     var acc = rand/10;
     acc = 0.1 >= acc ? 0.2:acc;
@@ -21,7 +21,7 @@ var Ball = function(){
 
     this.backgrounds = ['green', 'blue', 'purple', 'red', 'black', 'yellow', 'grey', 'brown', 'magenta', 'lightgrey'];
     this.background = (undefined !== this.backgrounds[rand]?this.backgrounds[rand]:'black');
-
+    // end randomisation
     return this;
 };
 
