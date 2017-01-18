@@ -13,6 +13,9 @@ const Ball = function(){
 Ball.prototype = Circle.prototype;
 Ball.prototype.constructor = Ball;
 
+/**
+ * random placement, size and speed
+ */
 Ball.prototype.randomize = function(){
     var rand = Math.round(Math.random()*10),
         acc = rand/10;
