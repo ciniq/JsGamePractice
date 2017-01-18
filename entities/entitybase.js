@@ -51,5 +51,10 @@ var EntityBase = function(ctx, x, y){
         return this;
     };
 
+    this.checkColission = function(){
+        // stationary items don't need collision checks
+        return false;
+    };
+
     return this;
 };

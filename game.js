@@ -19,7 +19,7 @@ var Game = function(){
     this.entities = [];
 
     // anything over 2000 will start decreasing fps
-    var BALL_AMOUNT = 10;
+    var BALL_AMOUNT = 100;
 
     for(var i = 0; i < BALL_AMOUNT; i++)
     {
@@ -47,23 +47,12 @@ Game.prototype.doDraw = function(delta){
 };
 
 Game.prototype.doLogic = function(delta){
+
     for (var i = 0; i < this.entities.length; i++)
     {
-        var reqPos = this.entities[i].requestPosition(delta),
-            curPos = this.entities[i].getPosition(delta);
+        var reqPos = this.entities[i].requestPosition(delta);
 
-        // very fucking simple collision detection
-        if (reqPos.x <= 0 || reqPos.x >= this.core.W)
-        {
-            this.entities[i].onCollision('X');
-            reqPos.x = curPos.x;
-        }
-
-        if (reqPos.y <= 0 || reqPos.y >= this.core.H)
-        {
-            this.entities[i].onCollision('Y');
-            reqPos.y = curPos.y;
-        }
+        reqPos = this.entities[i].checkColission(reqPos.x, reqPos.y);
 
         this.entities[i].setPosition(reqPos.x, reqPos.y);
     }

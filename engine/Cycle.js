@@ -35,6 +35,7 @@ var Cycle = function(scope){
     this.logicLoop = function(){};
     this.logicDelta = new Date().getTime();
     this.delta = undefined;
+    this.currentFps = undefined;
 
     // current fps
     this.fpsCounter = document.getElementById('fps');
@@ -77,7 +78,8 @@ Cycle.prototype.start = function(){
             me.frames++;
             if (new Date().getTime() - me.fpsDelta > 500 )
             {
-                me.fpsCounter.innerHTML = 'fps: '+(me.frames * 2) + ' delta: ' + Math.round(this.delta);
+                me.currentFps = (me.frames * 2)
+                me.fpsCounter.innerHTML = 'fps: '+ me.currentFps + ' delta: ' + (Math.round(this.delta*100)/100)+'ms';
                 me.fpsDelta = new Date().getTime();
                 me.frames = 0;
             }
