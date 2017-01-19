@@ -7,13 +7,10 @@ const QuadTree = function(ctx){
     this.entities = [];
 
     this.node = function(x, y, w, h){
-        this.X = x,
-        this.Y = y,
-        this.H = h,
-        this.W = w
-
-
-
+        this.X = x;
+        this.Y = y;
+        this.H = h;
+        this.W = w;
     };
 };
 
