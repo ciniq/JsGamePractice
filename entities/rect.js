@@ -1,4 +1,4 @@
-var Rect = function(){
+const Rect = function(){
     EntityBase.apply(this, arguments);
 };
 

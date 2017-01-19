@@ -15,7 +15,7 @@ Ball.prototype = Cirlce.prototype;
 Ball.prototype.constructor = Ball;
 
 Ball.prototype.randomize = function(){
-    let rand = Math.round(Math.random()*10),
+    var rand = Math.round(Math.random()*10),
         acc = rand/10;
     acc = 0.1 >= acc ? 0.2:acc;
     this.size = Math.round((5 * rand/10) * (rand == 0 ? 1: rand));

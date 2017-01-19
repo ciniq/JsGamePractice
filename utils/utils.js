@@ -1,6 +1,6 @@
 const Utils = {
     createEl : function(parentEl, type, css){
-        let el = document.createElement(type);
+        var el = document.createElement(type);
         if (css){
             this.css(el, css);
         }
@@ -9,7 +9,7 @@ const Utils = {
     },
 
     css : function(el, css){
-        for (let i in css){
+        for (var i in css){
             if (css.hasOwnProperty(i)){
                 el.style[i] = css[i];
             }
