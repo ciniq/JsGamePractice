@@ -20,13 +20,15 @@ var Game = function(){
     this.entities = [];
 
     // anything over 2000 will start decreasing fps
-    var BALL_AMOUNT = 500;
+    var BALL_AMOUNT = 5;
 
     for(var i = 0; i < BALL_AMOUNT; i++)
     {
         this.entities.push(new Ball(this.core.ctx, Math.floor(Math.random()*this.core.H), Math.floor(Math.random()*this.core.W)));
     }
     this.entities.push(new Ball(this.core.ctx, 200, 100));
+
+
 };
 
 Game.prototype.start = function(){

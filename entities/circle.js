@@ -1,4 +1,4 @@
-const Cirlce = function(){
+const Circle = function(){
     EntityBase.apply(this, arguments);
 
     this.draw = function(){
@@ -44,5 +44,5 @@ const Cirlce = function(){
 };
 
 // inherit from characterBase
-Cirlce.prototype = EntityBase.prototype;
-Cirlce.prototype.constructor = Cirlce;
+Circle.prototype = EntityBase.prototype;
+Circle.prototype.constructor = Circle;
