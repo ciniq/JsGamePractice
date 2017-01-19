@@ -2,10 +2,8 @@ const Ball = function(){
     Cirlce.apply(this, arguments);
 
     //randomise the ball
-    //this.randomize();
-    this.size = 15;
-
-
+    this.randomize();
+    //this.size = 15;
 
     return this;
 };

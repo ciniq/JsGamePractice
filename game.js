@@ -20,7 +20,7 @@ var Game = function(){
     this.entities = [];
 
     // anything over 2000 will start decreasing fps
-    var BALL_AMOUNT = 0;
+    var BALL_AMOUNT = 500;
 
     for(var i = 0; i < BALL_AMOUNT; i++)
     {
@@ -39,9 +39,11 @@ Game.prototype.stop = function(){
     this.core.cycle.stop();
 };
 
-Game.prototype.doDraw = function(delta){
+Game.prototype.doDraw = function(){
+    // clear the canvas
     this.core.ctx.clearRect(0,0,this.core.W, this.core.H);
 
+    // draw each item
     for (var i = 0; i < this.entities.length; i++)
     {
         this.entities[i].draw();
@@ -52,13 +54,13 @@ Game.prototype.doLogic = function(delta){
 
     for (var i = 0; i < this.entities.length; i++){
 
-        this.entities[i].accelerate(true);
-
-
+        // request the new position
         var reqPos = this.entities[i].requestPosition(delta);
 
-        reqPos.y = this.core.physics.doGravity(reqPos.y);
+        // apply gravity
+        // reqPos.y = this.core.physics.doGravity(reqPos.y);
 
+        // check if item collides
         reqPos = this.entities[i].checkColission(reqPos.x, reqPos.y);
 
         this.entities[i].setPosition(reqPos.x, reqPos.y);
