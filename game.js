@@ -53,7 +53,7 @@ Game.prototype.doDraw = function(){
 Game.prototype.doLogic = function(delta){
 
     // build a quadtree
-    var Quad = new Quadtree(this.ctx);
+  //  var Quad = new Quadtree(this.ctx);
 
     for (var i = 0; i < this.entities.length; i++){
 
