@@ -26,8 +26,6 @@ var Game = function(){
     {
         this.entities.push(new Ball(this.core.ctx, Math.floor(Math.random()*this.core.H), Math.floor(Math.random()*this.core.W)));
     }
-    this.entities.push(new Ball(this.core.ctx, 200, 100));
-
 
 };
 
@@ -54,10 +52,15 @@ Game.prototype.doDraw = function(){
 
 Game.prototype.doLogic = function(delta){
 
+    // build a quadtree
+    var Quad = new Quadtree(this.ctx);
+
     for (var i = 0; i < this.entities.length; i++){
 
         // request the new position
         var reqPos = this.entities[i].requestPosition(delta);
+
+        // check quadtree for this item
 
         // apply gravity
         // reqPos.y = this.core.physics.doGravity(reqPos.y);

@@ -1,6 +1,7 @@
 const EntityBase = function(ctx, x, y){
     this.ctx = ctx;
 
+    this.id = utils.createId();
     this.X = x;
     this.Y = y;
     this.size = 0;
