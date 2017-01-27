@@ -22,5 +22,16 @@ const Utils = {
             var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
             return v.toString(16);
         });
+    },
+
+    cascade: function(item, func, scope){
+        func.call(scope, item);
+        if(item.hasOwnProperty('subnodes'))
+        {
+            for(let i = 0; i < item.subnodes.length; i++)
+            {
+                Utils.cascade(item.subnodes[i], func, scope);
+            }
+        }
     }
 };

@@ -1,6 +1,8 @@
 const Circle = function(){
     EntityBase.apply(this, arguments);
 
+    this.type = 'circle';
+
     this.draw = function(){
         this.ctx.beginPath();
         this.ctx.arc(this.X,this.Y,this.size,0,Math.PI*2,true);

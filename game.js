@@ -24,7 +24,7 @@ var Game = function(){
     this.entities = [];
 
     // anything over 2000 will start decreasing fps
-    var BALL_AMOUNT = 5;
+    var BALL_AMOUNT = 15;
 
     for(var i = 0; i < BALL_AMOUNT; i++)
     {

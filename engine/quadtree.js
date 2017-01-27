@@ -1,91 +1,95 @@
+var stop = false;
 var Quadtree = function(ctx){
     var me = this,
-        nodes = [],
         ctx = ctx,
-        maxItems = 2,
+        maxItems = 1,
         maxDepth = 4;
 
-    this.node = function(x, y, w, h, entities){
+    this.nodes = {};
+
+    this.node = function(box, x, y, w, h, entities){
+        this.box = box;
         this.X = x;
         this.Y = y;
         this.W = w;
         this.H = h;
         this.entities = entities;
+        this.subnodes = [];
 
         var splits = [{
+            index: 1,
+            box: 'topleft',
             X: this.X,
             Y: this.Y,
             W: this.W/2,
             H: this.H/2,
             entities: []
         },{
-            X: this.W/2,
+            box: 'topright',
+            X: this.X + this.W/2,
             Y: this.Y,
             W: this.W/2,
             H: this.H/2,
             entities: []
         },{
+            box: 'bottomleft',
             X: this.X,
-            Y: this.H/2,
+            Y: this.Y + this.H/2,
             W: this.W/2,
             H: this.H/2,
             entities: []
-
         },{
-            X: this.W/2,
-            Y: this.H/2,
+            box: 'bottomright',
+            X: this.X + this.W/2,
+            Y: this.Y + this.H/2,
             W: this.W/2,
             H: this.H/2,
             entities: []
         }],
 
         AABB = function(item, context){
-            var a = item.getBoxRight() > context.X,
-            b = item.getBoxTop() > context.Y,
-            c = item.getBoxLeft() < context.W,
-            d = item.getBoxBottom() < context.H,
-            color =  item.background;
-
-
-            var retval = (
+            return (
                 item.getBoxRight() > context.X &&
                 item.getBoxTop() > context.Y &&
-                item.getBoxLeft() < context.W &&
-                item.getBoxBottom() < context.H
+                item.getBoxLeft() < (context.W + context.X) &&
+                item.getBoxBottom() < (context.H + context.Y)
             );
-            return retval;
         };
 
-        //console.log(splits); die();
         if (maxItems < this.entities.length) {
             for (let i = 0; i < splits.length; i++) {
                 for (let x = 0; x < this.entities.length; x++) {
-                    //debugger;
                     if (AABB(this.entities[x], splits[i])) {
                         splits[i].entities.push(this.entities[x]);
                     }
                 }
-                // create a new square
-                nodes.push(new me.node(splits[i].X, splits[i].Y, splits[i].W, splits[i].H, splits[i].entities))
+            }
+
+            for (let i = 0; i < splits.length; i++) {
+                // create a new quad node
+                this.subnodes.push(new me.node(splits[i].box, splits[i].X, splits[i].Y, splits[i].W, splits[i].H, splits[i].entities))
             }
             this.entities = [];
         }
     };
 
     this.check = function(x, y, w, h, entities){
-        nodes = [];
-        nodes.push(new this.node(x, y, w, h, entities));
+        me.nodes = new this.node('main', x, y, w, h, entities);
     };
 
     this.draw = function()
     {
-        for (let i = 0; i < nodes.length; i++)
-        {
-            // debug
+        var i = 0;
+        Utils.cascade(me.nodes, function(node){
+            i++;
             ctx.beginPath();
-            ctx.rect(nodes[i].X,nodes[i].Y,nodes[i].W, nodes[i].H);
+            ctx.rect(node.X,node.Y,node.W, node.H);
             ctx.stroke();
-        }
+        }, this);
 
+        if(i > 8)
+        {
+            //console.log(me.nodes); die();
+        }
     };
 };

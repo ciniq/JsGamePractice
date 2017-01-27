@@ -1,5 +1,7 @@
 const Rect = function(){
     EntityBase.apply(this, arguments);
+
+    this.type = 'square';
 };
 
 // inherit from characterBase
