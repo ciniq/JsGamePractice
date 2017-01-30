@@ -16,6 +16,8 @@ Ball.prototype.randomize = function(){
     var rand = Math.round(Math.random()*10),
         acc = rand/10;
     acc = 0.1 >= acc ? 0.2:acc;
+
+    acc = 0.15;
     this.size = 10;//Math.round((5 * rand/10) * (rand == 0 ? 1: rand));
 
     this.X = (this.ctx.canvas.width * Math.random());

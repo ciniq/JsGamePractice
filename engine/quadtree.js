@@ -1,9 +1,9 @@
-var stop = false;
 var Quadtree = function(ctx){
     var me = this,
-        ctx = ctx,
-        maxItems = 1,
-        maxDepth = 4;
+        ctx = ctx;
+
+    this.maxItems = 2;
+    this.maxDepth = 4;
 
     this.nodes = {};
 
@@ -45,51 +45,49 @@ var Quadtree = function(ctx){
             W: this.W/2,
             H: this.H/2,
             entities: []
-        }],
+        }];
 
-        AABB = function(item, context){
-            return (
-                item.getBoxRight() > context.X &&
-                item.getBoxTop() > context.Y &&
-                item.getBoxLeft() < (context.W + context.X) &&
-                item.getBoxBottom() < (context.H + context.Y)
-            );
-        };
-
-        if (maxItems < this.entities.length) {
+        if (me.maxItems < this.entities.length) {
             for (let i = 0; i < splits.length; i++) {
                 for (let x = 0; x < this.entities.length; x++) {
-                    if (AABB(this.entities[x], splits[i])) {
+                    if (Collission.AABB_greedy(this.entities[x], splits[i])) {
                         splits[i].entities.push(this.entities[x]);
                     }
                 }
-            }
-
-            for (let i = 0; i < splits.length; i++) {
-                // create a new quad node
                 this.subnodes.push(new me.node(splits[i].box, splits[i].X, splits[i].Y, splits[i].W, splits[i].H, splits[i].entities))
             }
+
             this.entities = [];
         }
     };
 
     this.check = function(x, y, w, h, entities){
+        var checkNodes = [];
+
+        // create the tree
         me.nodes = new this.node('main', x, y, w, h, entities);
+
+       // console.log(me.nodes); die();
+        // check which nodes need to be checked for colission
+        Utils.cascade(me.nodes, function(item){
+
+            if (undefined !== item.entities && item.entities.length >= me.maxItems) {
+                checkNodes.push(item);
+            }
+        }, this);
+
+
     };
 
     this.draw = function()
     {
         var i = 0;
+
         Utils.cascade(me.nodes, function(node){
             i++;
             ctx.beginPath();
             ctx.rect(node.X,node.Y,node.W, node.H);
             ctx.stroke();
         }, this);
-
-        if(i > 8)
-        {
-            //console.log(me.nodes); die();
-        }
     };
 };
