@@ -11,7 +11,10 @@ const Circle = function(){
         return this;
     };
 
-    this.onCollision = function(dir){
+    this.onCollision = function(collData){
+
+        var dir = collData;
+
         if (dir == 'X'){
             this.dirX = !this.dirX;
         }

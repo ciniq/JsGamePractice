@@ -55,7 +55,7 @@ var Quadtree = function(ctx){
         if (me.maxItems < this.entities.length && this.depth < me.maxDepth) {
             for (let i = 0; i < splits.length; i++) {
                 for (let x = 0; x < this.entities.length; x++) {
-                    if (Collission.AABB_greedy(this.entities[x], splits[i])) {
+                    if (Collision.AABB_quad_greedy(this.entities[x], splits[i])) {
                         splits[i].entities.push(this.entities[x]);
                     }
                 }
@@ -67,7 +67,8 @@ var Quadtree = function(ctx){
     };
 
     this.check = function(x, y, w, h, entities){
-        var checkNodes = [];
+        var checkNodes = [],
+            check = false;
 
         // create the tree
         me.nodes = new this.node('main', x, y, w, h, entities);
@@ -75,13 +76,38 @@ var Quadtree = function(ctx){
        // console.log(me.nodes); die();
         // check which nodes need to be checked for colission
         Utils.cascade(me.nodes, function(item){
-
-            if (undefined !== item.entities && item.entities.length >= me.maxItems) {
+            if (undefined !== item.entities && item.entities.length > 1) {
                 checkNodes.push(item);
             }
         }, this);
 
+        for (let i = 0; i < checkNodes.length; i++) {
+            for (let x = 0; x < checkNodes[i].entities.length; x++) {
+                check = this.checkEntity(checkNodes[i].entities[x], x, checkNodes[i].entities);
+                if(check.colliding)
+                {
+                    checkNodes[i].entities[x].onCollision(check);
+                }
+            }
+        }
+    };
 
+    this.checkEntity = function(entity, key, entities){
+        var retVal = {
+            colliding: false
+        };
+
+        for (let i = 0; i < entities.length; i++) {
+            if (key !== i) {
+                retVal.colliding = Collision.collision(entity, entities[i]);
+                if(retVal.colliding) {
+                    retVal.colliding = true;
+                    retVal.collidingEntity = entities[i];
+                    break;
+                }
+            }
+        }
+        return retVal;
     };
 
     this.draw = function()

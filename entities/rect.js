@@ -24,9 +24,25 @@ const Rect = function(){
         }
     };
 
+    this.getCentre = function() {
+        return {
+            x: this.X + (this.W/2),
+            y: this.Y + (this.H/2)
+        };
+    };
+
+    this.onCollision = function(collisionData) {
+        if (collisionData.colliding)
+        {
+            var me = this;
+            this.background = 'yellow';
+            setTimeout(function(){me.background = 'red'}, 500);
+        }
+
+
+    };
 };
 
 // inherit from characterBase
 Rect.prototype = EntityBase.prototype;
 Rect.prototype.constructor = Rect;
-
