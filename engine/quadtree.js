@@ -3,11 +3,12 @@ var Quadtree = function(ctx){
         ctx = ctx;
 
     this.maxItems = 2;
-    this.maxDepth = 4;
+    this.maxDepth = 5;
 
     this.nodes = {};
 
-    this.node = function(box, x, y, w, h, entities){
+    this.node = function(box, x, y, w, h, entities, depth){
+        this.depth = depth||0;
         this.box = box;
         this.X = x;
         this.Y = y;
@@ -23,38 +24,42 @@ var Quadtree = function(ctx){
             Y: this.Y,
             W: this.W/2,
             H: this.H/2,
-            entities: []
+            entities: [],
+            depth: this.depth+1
         },{
             box: 'topright',
             X: this.X + this.W/2,
             Y: this.Y,
             W: this.W/2,
             H: this.H/2,
-            entities: []
+            entities: [],
+            depth: this.depth+1
         },{
             box: 'bottomleft',
             X: this.X,
             Y: this.Y + this.H/2,
             W: this.W/2,
             H: this.H/2,
-            entities: []
+            entities: [],
+            depth: this.depth+1
         },{
             box: 'bottomright',
             X: this.X + this.W/2,
             Y: this.Y + this.H/2,
             W: this.W/2,
             H: this.H/2,
-            entities: []
+            entities: [],
+            depth: this.depth+1
         }];
 
-        if (me.maxItems < this.entities.length) {
+        if (me.maxItems < this.entities.length && this.depth < me.maxDepth) {
             for (let i = 0; i < splits.length; i++) {
                 for (let x = 0; x < this.entities.length; x++) {
                     if (Collission.AABB_greedy(this.entities[x], splits[i])) {
                         splits[i].entities.push(this.entities[x]);
                     }
                 }
-                this.subnodes.push(new me.node(splits[i].box, splits[i].X, splits[i].Y, splits[i].W, splits[i].H, splits[i].entities))
+                this.subnodes.push(new me.node(splits[i].box, splits[i].X, splits[i].Y, splits[i].W, splits[i].H, splits[i].entities, splits[i].depth))
             }
 
             this.entities = [];

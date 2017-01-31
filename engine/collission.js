@@ -9,19 +9,33 @@ const Collission = {
     },
 
     AABB_greedy: function(item, context){
+
+            //
+            //console.log((item.getBoxTop() +' > '+ context.Y +' && '+item.getBoxTop() +' < '+ (context.H + context.Y)))
+            //console.log((item.getBoxBottom() +' < '+ (context.H + context.Y) +' && '+item.getBoxBottom() +' > '+ context.Y))
+            //console.log((item.getBoxTop() +' < '+ context.Y +' && '+item.getBoxBottom() +' > '+(context.H + context.Y)))
+            //
+            //
+
+
         // check if the vertical
         if(
             (item.getBoxTop() > context.Y && item.getBoxTop() < (context.H + context.Y)) ||
-            (item.getBoxBottom() < (context.H + context.Y) && item.getBoxBottom() > context.Y)
+            (item.getBoxBottom() < (context.H + context.Y) && item.getBoxBottom() > context.Y) ||
+            (item.getBoxTop() < context.Y && item.getBoxBottom() > (context.H + context.Y))
         ) {
+
             // check horizontal placement
             if (
                 (item.getBoxRight() > context.X && item.getBoxRight() < (context.W + context.X)) ||
-                (item.getBoxLeft() < (context.W + context.X) && item.getBoxLeft() > context.X)
+                (item.getBoxLeft() < (context.W + context.X) && item.getBoxLeft() > context.X) ||
+                (item.getBoxRight() > context.X && item.getBoxLeft() < (context.W + context.X))
             ) {
+
                 return true;
             }
         }
+
         return false;
     },
 
