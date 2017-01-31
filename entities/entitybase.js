@@ -69,19 +69,19 @@ const EntityBase = function(ctx, x, y){
 
     // getters for box collision
     this.getBoxLeft = function(){
-        return this.X - (this.size/2);
+        return this.X;
     };
 
     this.getBoxTop = function(){
-        return this.Y - (this.size/2);
+        return this.Y;
     };
 
     this.getBoxRight = function(){
-        return this.X + (this.size/2);
+        return this.X + this.W;
     };
 
     this.getBoxBottom = function(){
-        return this.Y + (this.size/2);
+        return this.Y + this.H;
     };
 
     return this;

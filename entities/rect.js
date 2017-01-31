@@ -2,7 +2,7 @@ const Rect = function(){
     EntityBase.apply(this, arguments);
 
     this.W = 10;
-    this.H = 40;
+    this.H = 100;
     this.background = 'red';
 
     this.type = 'square';

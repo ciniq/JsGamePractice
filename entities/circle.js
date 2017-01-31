@@ -43,6 +43,23 @@ const Circle = function(){
             y: y
         };
     };
+
+    // getters for box collision
+    this.getBoxLeft = function(){
+        return this.X - (this.size/2);
+    };
+
+    this.getBoxTop = function(){
+        return this.Y - (this.size/2);
+    };
+
+    this.getBoxRight = function(){
+        return this.X + (this.size/2);
+    };
+
+    this.getBoxBottom = function(){
+        return this.Y + (this.size/2);
+    };
 };
 
 // inherit from characterBase

@@ -9,15 +9,6 @@ const Collission = {
     },
 
     AABB_greedy: function(item, context){
-
-            //
-            //console.log((item.getBoxTop() +' > '+ context.Y +' && '+item.getBoxTop() +' < '+ (context.H + context.Y)))
-            //console.log((item.getBoxBottom() +' < '+ (context.H + context.Y) +' && '+item.getBoxBottom() +' > '+ context.Y))
-            //console.log((item.getBoxTop() +' < '+ context.Y +' && '+item.getBoxBottom() +' > '+(context.H + context.Y)))
-            //
-            //
-
-
         // check if the vertical
         if(
             (item.getBoxTop() > context.Y && item.getBoxTop() < (context.H + context.Y)) ||
