@@ -24,33 +24,42 @@ var Game = function(){
     this.entities = [];
 
     // anything over 2000 will start decreasing fps
-    var BALL_AMOUNT = 1;
+    var BALL_AMOUNT = 5;
 
     for(var i = 0; i < BALL_AMOUNT; i++)
     {
         this.entities.push(new Ball(this.core.ctx, Math.floor(Math.random()*this.core.H), Math.floor(Math.random()*this.core.W)));
     }
 
-    this.entities.push(new Rect(this.core.ctx, 500, 200));
+    // top
+    this.entities.push(new Tile(this.core.ctx, 0, 0).setDimensions(this.core.W, 2));
+
+    // bottom
+    this.entities.push(new Tile(this.core.ctx, 0, this.core.H-2).setDimensions(this.core.W, 2));
+
+    // left
+    this.entities.push(new Tile(this.core.ctx, 2, 0).setDimensions(2, this.core.H-4));
+
+    // right
+    this.entities.push(new Tile(this.core.ctx, this.core.W-2, 0).setDimensions(2, this.core.H-4));
 };
 
-Game.prototype.start = function(){
+Game.prototype.start = function() {
     this.core.cycle.setDrawLoop(this.doDraw);
     this.core.cycle.setLogicLoop(this.doLogic);
     this.core.cycle.start();
 };
 
-Game.prototype.stop = function(){
+Game.prototype.stop = function() {
     this.core.cycle.stop();
 };
 
-Game.prototype.doDraw = function(){
+Game.prototype.doDraw = function() {
     // clear the canvas
     this.core.ctx.clearRect(0,0,this.core.W, this.core.H);
 
     // draw each item
-    for (var i = 0; i < this.entities.length; i++)
-    {
+    for (var i = 0; i < this.entities.length; i++) {
         this.entities[i].draw();
     }
     this.core.collision.quad.draw();
@@ -58,27 +67,21 @@ Game.prototype.doDraw = function(){
 
 Game.prototype.doLogic = function(delta){
 
-    // build a quadtree
-  //  var Quad = new Quadtree(this.ctx);
-
+    // set new positions
     for (let i = 0; i < this.entities.length; i++) {
-
-        // request the new position
-        this.entities[i].reqPos = this.entities[i].requestPosition(delta);
-        this.entities[i].reqPos = this.entities[i].checkColission(this.entities[i].reqPos.x, this.entities[i].reqPos.y);
-    }
-        // apply gravity
-        // reqPos.y = this.core.physics.doGravity(reqPos.y);
-
-        // check if item collides
-
-    for (let i = 0; i < this.entities.length; i++){
-
-        this.entities[i].setPosition(this.entities[i].reqPos.x, this.entities[i].reqPos.y);
-
-        delete this.entities[i].reqPos;
+        // set the new position
+        this.entities[i].updatePosition(delta);
     }
 
-    // check quadtree for this item
+    // handle physics
+
+    // check colissions
     this.core.collision.quad.check(0, 0, this.core.canvas.width, this.core.canvas.height, this.entities);
+
+    // resolve colissions
+    for (let i = 0; i < this.entities.length; i++) {
+        if (this.entities[i].collide){
+            this.entities[i].resolveCollision();
+        }
+    }
 };

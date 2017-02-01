@@ -2,9 +2,14 @@ const EntityBase = function(ctx, x, y){
     this.ctx = ctx;
 
     this.id = Utils.createId();
+    this.type = undefined;
+    this.collissionType = undefined;
     this.X = x;
     this.Y = y;
     this.size = 0;
+    this.vector = {X:0,Y:0};
+    this.collide = false;
+    this.collisionEntities = [];
 
     // acceleration
     this.AX = this.AY = 0;
@@ -30,6 +35,13 @@ const EntityBase = function(ctx, x, y){
         };
     };
 
+    this.setVector = function(degree) {
+        var rad = degree*(Math.PI/180);
+        this.vector.X = Math.cos(rad);
+        this.vector.Y = Math.sin(rad);
+        return this;
+    };
+
     this.accelerate = function(x, y){
         if (x){
             this.AX = (this.AX < 1 ? this.AX+0.03 : 1);
@@ -40,31 +52,37 @@ const EntityBase = function(ctx, x, y){
         }
     };
 
+    this.getCentre = function() {
+        return {
+            x: this.X + (this.W/2),
+            y: this.Y + (this.H/2)
+        };
+    };
+
     this.draw = function(){
         return this;
     };
 
-    this.requestPosition = function(delta){
+    this.updatePosition = function(delta){
 
+        // calculate the speed
         this.VX = this.AX*this.VXmax;
         this.VY = this.AY*this.VYmax;
 
         // Distance = speed * delta
-        return {
-            x: this.X + ((this.dirX ? this.VX : 0-this.VX)*delta),
-            y: this.Y + ((this.dirY ? this.VY : 0-this.VY)*delta)
-        };
+        this.X += ((this.dirX ? this.VX : 0-this.VX)*delta);
+        this.Y += ((this.dirY ? this.VY : 0-this.VY)*delta);
     };
 
-    this.onCollision = function(dir){
+    this.setCollision = function(entity) {
+        this.collide = true;
+        this.collisionEntities.push(entity);
+    };
 
+    this.resolveCollision = function() {
         // seeing this is a stationary target, nothing happens
+        this.collide = false;
         return this;
-    };
-
-    this.checkColission = function(){
-        // stationary items don't need collision checks
-        return false;
     };
 
     // getters for box collision

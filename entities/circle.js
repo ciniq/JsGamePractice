@@ -1,7 +1,8 @@
 const Circle = function(){
     EntityBase.apply(this, arguments);
 
-    this.type = 'circle';
+    this.collissionType = 'circle';
+    this.originalBG = undefined;
 
     this.draw = function(){
         this.ctx.beginPath();
@@ -11,39 +12,32 @@ const Circle = function(){
         return this;
     };
 
-    this.onCollision = function(collData){
+    this.resolveCollision = function() {
 
-        var dir = collData;
-
-        if (dir == 'X'){
-            this.dirX = !this.dirX;
+        for (let i = 0; i < this.collisionEntities.length; i++)
+        {
+            // decide hit side!
+            if(this.collisionEntities[i].getCentre())
+            {
+                this.vector.X = (0 < this.vector.X ? 0-this.vector.X : Math.abs(this.vector.X));
+            }
+            else if(this.collisionEntities[i].)
+            {
+                this.vector.Y = (0 < this.vector.Y ? 0-this.vector.Y : Math.abs(this.vector.Y));
+            }
         }
 
-        if (dir == 'Y'){
-            this.dirY = !this.dirY;
-        }
+        this.AX = (this.vector.X/5);
+        this.AY = (this.vector.Y/5);
 
+        this.collide = false;
         return this;
     };
 
-    this.checkColission = function(x, y){
-
-        // very fucking simple collision detection
-        if (x - this.size < 0 || x + this.size > this.ctx.canvas.width)
-        {
-            this.onCollision('X');
-            x = this.X;
-        }
-
-        if (y - this.size < 0 || y + this.size > this.ctx.canvas.height)
-        {
-            this.onCollision('Y');
-            y = this.Y;
-        }
-
+    this.getCentre = function() {
         return {
-            x: x,
-            y: y
+            x: this.X,
+            y: this.Y
         };
     };
 

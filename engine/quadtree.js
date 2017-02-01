@@ -83,31 +83,19 @@ var Quadtree = function(ctx){
 
         for (let i = 0; i < checkNodes.length; i++) {
             for (let x = 0; x < checkNodes[i].entities.length; x++) {
-                check = this.checkEntity(checkNodes[i].entities[x], x, checkNodes[i].entities);
-                if(check.colliding)
-                {
-                    checkNodes[i].entities[x].onCollision(check);
-                }
+                this.checkEntityCollision(checkNodes[i].entities[x], x, checkNodes[i].entities);
             }
         }
     };
 
-    this.checkEntity = function(entity, key, entities){
-        var retVal = {
-            colliding: false
-        };
-
+    this.checkEntityCollision = function(entity, key, entities) {
         for (let i = 0; i < entities.length; i++) {
             if (key !== i) {
-                retVal.colliding = Collision.collision(entity, entities[i]);
-                if(retVal.colliding) {
-                    retVal.colliding = true;
-                    retVal.collidingEntity = entities[i];
-                    break;
+                if(Collision.collision(entity, entities[i])) {
+                    entity.setCollision(entities[i]);
                 }
             }
         }
-        return retVal;
     };
 
     this.draw = function()

@@ -31,16 +31,16 @@ const Collision = {
     },
 
     collision: function(item1, item2) {
-        if(item1.type === 'circle') {
-            if(item2.type == 'circle') {
+        if(item1.collissionType === 'circle') {
+            if(item2.collissionType == 'circle') {
                 return this.circle2circle(item1, item2);
-            } else if (item2.type == 'square') {
+            } else if (item2.collissionType == 'square') {
                 return this.circle2square(item1, item2);
             }
-        } else if (item1.type == 'square') {
-            if (item2.type == 'circle') {
+        } else if (item1.collissionType == 'square') {
+            if (item2.collissionType == 'circle') {
                 return this.circle2square(item2, item1);
-            } else if (item2.type == 'square') {
+            } else if (item2.collissionType == 'square') {
                 return this.box2box(item2, item2);
             }
         }
@@ -65,7 +65,7 @@ const Collision = {
 
     circle2square: function(circle, square) {
 
-
+        // todo: refine this shit
         if (this.box2box(circle, square)) {
 
             return true;
@@ -76,12 +76,12 @@ const Collision = {
 
     box2box: function(square1, square2) {
         if(
-            (square1.getBoxLeft() >= square2.getBoxLeft() && square1.getBoxLeft() <= square2.getBoxRight()) ||
-            (square1.getBoxRight() <= square2.getBoxRight() && square1.getBoxRight() >= square2.getBoxLeft())
+            (square1.getBoxLeft() > square2.getBoxLeft() && square1.getBoxLeft() < square2.getBoxRight()) ||
+            (square1.getBoxRight() < square2.getBoxRight() && square1.getBoxRight() > square2.getBoxLeft())
         ) {
              if(
-                (square1.getBoxTop() >= square2.getBoxTop() && square1.getBoxTop() <= square2.getBoxBottom()) ||
-                (square1.getBoxBottom() <= square2.getBoxBottom() && square1.getBoxBottom() >= square2.getBoxTop())
+                (square1.getBoxTop() > square2.getBoxTop() && square1.getBoxTop() < square2.getBoxBottom()) ||
+                (square1.getBoxBottom() < square2.getBoxBottom() && square1.getBoxBottom() > square2.getBoxTop())
             ) {
                 return true;
             }
