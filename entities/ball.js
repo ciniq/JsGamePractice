@@ -25,19 +25,20 @@ Ball.prototype.randomize = function(){
     this.size = 10;//Math.round((5 * rand/10) * (rand == 0 ? 1: rand));
 
     this.setVector(Math.random() * 360);
+    //this.setVector(90);
 
     this.X = (this.ctx.canvas.width * Math.random());
     this.Y = (this.ctx.canvas.height * Math.random());
 
     // place within the canvas
-    if(this.X < this.size){this.X = this.size;}
-    else if(this.X > this.ctx.canvas.width - this.size){this.X = this.ctx.canvas.width - this.size;}
-    if(this.Y < this.size){this.Y = this.size;}
-    else if(this.Y > this.ctx.canvas.height - this.size){this.Y = this.ctx.canvas.height - this.size;}
+    if(this.X < this.size +10){this.X = this.size+10;}
+    else if(this.X > this.ctx.canvas.width - this.size-10){this.X = this.ctx.canvas.width - this.size-10;}
+    if(this.Y < this.size+10){this.Y = this.size+10;}
+    else if(this.Y > this.ctx.canvas.height - this.size-10){this.Y = this.ctx.canvas.height - this.size-10;}
 
     // in px/sec
-    this.AX = (this.vector.X/5) ;
-    this.AY = (this.vector.Y/5) ;
+    this.AX = (this.vector.X/3) ;
+    this.AY = (this.vector.Y/3) ;
 
     this.backgrounds = ['green', 'blue', 'purple', 'red', 'black', 'yellow', 'grey', 'brown', 'magenta', 'lightgrey'];
     this.background = (undefined !== this.backgrounds[rand]?this.backgrounds[rand]:'black');

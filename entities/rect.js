@@ -17,7 +17,7 @@ const Rect = function(){
         this.ctx.beginPath();
         this.ctx.rect(this.X,this.Y, this.W, this.H);
         this.ctx.fillStyle = this.background;
-        this.ctx.stroke();
+        // this.ctx.stroke();
         this.ctx.fill();
         return this;
     };

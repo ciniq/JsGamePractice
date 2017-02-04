@@ -9,7 +9,7 @@ const EntityBase = function(ctx, x, y){
     this.size = 0;
     this.vector = {X:0,Y:0};
     this.collide = false;
-    this.collisionEntities = [];
+    this.collisionEntities = {};
 
     // acceleration
     this.AX = this.AY = 0;
@@ -76,7 +76,7 @@ const EntityBase = function(ctx, x, y){
 
     this.setCollision = function(entity) {
         this.collide = true;
-        this.collisionEntities.push(entity);
+        this.collisionEntities[entity.id] = entity;
     };
 
     this.resolveCollision = function() {

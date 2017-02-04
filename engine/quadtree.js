@@ -89,7 +89,7 @@ var Quadtree = function(ctx){
     };
 
     this.checkEntityCollision = function(entity, key, entities) {
-        for (let i = 0; i < entities.length; i++) {
+               for (let i = 0; i < entities.length; i++) {
             if (key !== i) {
                 if(Collision.collision(entity, entities[i])) {
                     entity.setCollision(entities[i]);

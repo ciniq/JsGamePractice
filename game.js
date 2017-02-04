@@ -24,7 +24,7 @@ var Game = function(){
     this.entities = [];
 
     // anything over 2000 will start decreasing fps
-    var BALL_AMOUNT = 5;
+    var BALL_AMOUNT = 500;
 
     for(var i = 0; i < BALL_AMOUNT; i++)
     {
@@ -32,16 +32,22 @@ var Game = function(){
     }
 
     // top
-    this.entities.push(new Tile(this.core.ctx, 0, 0).setDimensions(this.core.W, 2));
+    this.entities.push(new Tile(this.core.ctx, 0, 0).setDimensions(this.core.W, 8));
 
     // bottom
-    this.entities.push(new Tile(this.core.ctx, 0, this.core.H-2).setDimensions(this.core.W, 2));
+    this.entities.push(new Tile(this.core.ctx, 0, this.core.H-8).setDimensions(this.core.W, 8));
 
     // left
-    this.entities.push(new Tile(this.core.ctx, 2, 0).setDimensions(2, this.core.H-4));
+    this.entities.push(new Tile(this.core.ctx, 0, 8).setDimensions(8, this.core.H-16));
 
     // right
-    this.entities.push(new Tile(this.core.ctx, this.core.W-2, 0).setDimensions(2, this.core.H-4));
+    this.entities.push(new Tile(this.core.ctx, this.core.W-8, 8).setDimensions(8, this.core.H-16));
+
+    this.entities.push(new Tile(this.core.ctx, 100, 200).setDimensions(200, 8));
+    this.entities.push(new Tile(this.core.ctx, 200, 300).setDimensions(200, 8));
+    this.entities.push(new Tile(this.core.ctx, 300, 400).setDimensions(200, 8));
+    this.entities.push(new Tile(this.core.ctx, 400, 600).setDimensions(200, 8));
+
 };
 
 Game.prototype.start = function() {
@@ -62,7 +68,7 @@ Game.prototype.doDraw = function() {
     for (var i = 0; i < this.entities.length; i++) {
         this.entities[i].draw();
     }
-    this.core.collision.quad.draw();
+    //this.core.collision.quad.draw();
 };
 
 Game.prototype.doLogic = function(delta){

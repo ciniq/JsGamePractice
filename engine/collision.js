@@ -11,16 +11,16 @@ const Collision = {
     AABB_quad_greedy: function(item, context){
         // check if the vertical
         if(
-            (item.getBoxTop() > context.Y && item.getBoxTop() < (context.H + context.Y)) ||
-            (item.getBoxBottom() < (context.H + context.Y) && item.getBoxBottom() > context.Y) ||
-            (item.getBoxTop() < context.Y && item.getBoxBottom() > (context.H + context.Y))
+            (item.getBoxTop() >= context.Y && item.getBoxTop() <= (context.H + context.Y)) ||
+            (item.getBoxBottom() <= (context.H + context.Y) && item.getBoxBottom() >= context.Y) ||
+            (item.getBoxTop() <= context.Y && item.getBoxBottom() >= (context.H + context.Y))
         ) {
 
             // check horizontal placement
             if (
-                (item.getBoxRight() > context.X && item.getBoxRight() < (context.W + context.X)) ||
-                (item.getBoxLeft() < (context.W + context.X) && item.getBoxLeft() > context.X) ||
-                (item.getBoxRight() > context.X && item.getBoxLeft() < (context.W + context.X))
+                (item.getBoxRight() >= context.X && item.getBoxRight() <= (context.W + context.X)) ||
+                (item.getBoxLeft() <= (context.W + context.X) && item.getBoxLeft() >= context.X) ||
+                (item.getBoxRight() >= context.X && item.getBoxLeft() <= (context.W + context.X))
             ) {
 
                 return true;
@@ -55,7 +55,7 @@ const Collision = {
                 Ydiff = (circle1.Y > circle2.Y ? circle1.Y - circle2.Y : circle2.Y - circle1.Y),
                 line = Math.sqrt(Math.pow(Xdiff, 2) + Math.pow(Ydiff, 2));
 
-            if (line <= ((circle1.size/2) + (circle2.size/2)))
+            if (line <= ((circle1.size) + (circle2.size)))
             {
                 return true
             }
