@@ -22,7 +22,7 @@ Ball.prototype.randomize = function(){
     acc = 0.1 >= acc ? 0.2:acc;
 
     acc = 0.15;
-    this.size = 10;//Math.round((5 * rand/10) * (rand == 0 ? 1: rand));
+    this.size = Math.round((5 * rand/10) * (rand == 0 ? 1: rand));
 
     this.setVector(Math.random() * 360);
     //this.setVector(90);

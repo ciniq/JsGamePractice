@@ -41,7 +41,7 @@ const Collision = {
             if (item2.collissionType == 'circle') {
                 return this.circle2square(item2, item1);
             } else if (item2.collissionType == 'square') {
-                return this.box2box(item2, item2);
+                return this.box2box(item1, item2);
             }
         }
         return false;

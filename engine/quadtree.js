@@ -73,7 +73,6 @@ var Quadtree = function(ctx){
         // create the tree
         me.nodes = new this.node('main', x, y, w, h, entities);
 
-       // console.log(me.nodes); die();
         // check which nodes need to be checked for colission
         Utils.cascade(me.nodes, function(item){
             if (undefined !== item.entities && item.entities.length > 1) {

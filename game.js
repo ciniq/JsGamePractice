@@ -43,13 +43,13 @@ var Game = function(){
     // right
     this.entities.push(new Tile(this.core.ctx, this.core.W-8, 8).setDimensions(8, this.core.H-16));
 
-    this.entities.push(new Tile(this.core.ctx, 100, 200).setDimensions(200, 8));
+    this.entities.push(new Tile(this.core.ctx, 50, 200).setDimensions(250, 8));
     this.entities.push(new Tile(this.core.ctx, 200, 300).setDimensions(200, 8));
     this.entities.push(new Tile(this.core.ctx, 300, 400).setDimensions(200, 8));
-    this.entities.push(new Tile(this.core.ctx, 400, 600).setDimensions(200, 8));
+    this.entities.push(new Tile(this.core.ctx, 500, 600).setDimensions(200, 8));
 
     // add the knight
-    this.entities.push(new Knight(this.core.ctx, 100, 50).setDimensions(64, 64));
+    this.entities.push(new Knight(this.core.ctx, 75, 50).setDimensions(53, 64));
 
 };
 
@@ -71,7 +71,7 @@ Game.prototype.doDraw = function() {
     for (var i = 0; i < this.entities.length; i++) {
         this.entities[i].draw();
     }
-    //this.core.collision.quad.draw();
+    this.core.collision.quad.draw();
 };
 
 Game.prototype.doLogic = function(delta){
