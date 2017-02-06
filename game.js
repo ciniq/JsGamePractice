@@ -24,12 +24,12 @@ var Game = function(){
     this.entities = [];
 
     // anything over 2000 will start decreasing fps
-    var BALL_AMOUNT = 500;
+//    var BALL_AMOUNT = 50;
 
-    for(var i = 0; i < BALL_AMOUNT; i++)
-    {
-        this.entities.push(new Ball(this.core.ctx, Math.floor(Math.random()*this.core.H), Math.floor(Math.random()*this.core.W)));
-    }
+    //for(var i = 0; i < BALL_AMOUNT; i++)
+    //{
+    //    this.entities.push(new Ball(this.core.ctx, Math.floor(Math.random()*this.core.H), Math.floor(Math.random()*this.core.W)));
+    //}
 
     // top
     this.entities.push(new Tile(this.core.ctx, 0, 0).setDimensions(this.core.W, 8));
@@ -47,6 +47,9 @@ var Game = function(){
     this.entities.push(new Tile(this.core.ctx, 200, 300).setDimensions(200, 8));
     this.entities.push(new Tile(this.core.ctx, 300, 400).setDimensions(200, 8));
     this.entities.push(new Tile(this.core.ctx, 400, 600).setDimensions(200, 8));
+
+    // add the knight
+    this.entities.push(new Knight(this.core.ctx, 100, 50).setDimensions(64, 64));
 
 };
 
