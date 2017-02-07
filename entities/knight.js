@@ -110,6 +110,7 @@ const Knight = function(){
                     console.log('rechts');
                     this.AX = 0;
                     this.X = this.collisionEntities[i].getBoxLeft() - this.W;
+                    this.dirY = true;
                 }
 
                 // links
@@ -120,7 +121,8 @@ const Knight = function(){
                 ) {
                     console.log('links');
                     this.AX = 0;
-                    this.X = this.collisionEntities[i].getBoxLeft()
+                    this.X = this.collisionEntities[i].getBoxRight()
+                    this.dirY = true;
                 }
             }
         }

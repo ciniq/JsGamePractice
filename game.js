@@ -54,9 +54,9 @@ var Game = function(){
 
     this.entities.push(new Tile(this.core.ctx, 50, 200).setDimensions(250, 8));
     this.entities.push(new Tile(this.core.ctx, 200, 300).setDimensions(200, 8));
-    this.entities.push(new Tile(this.core.ctx, 300, 400).setDimensions(200, 8));
+    this.entities.push(new Tile(this.core.ctx, 400, 550).setDimensions(200, 8));
+    this.entities.push(new Tile(this.core.ctx, 700, 625).setDimensions(150, 8));
     this.entities.push(new Tile(this.core.ctx, 500, 700).setDimensions(200, 8));
-    this.entities.push(new Tile(this.core.ctx, 700, 550).setDimensions(150, 8));
 
     // add the knight
     var knight = new Knight(this.core.ctx, 75, 500).setDimensions(53, 64);
