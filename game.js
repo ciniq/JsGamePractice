@@ -1,5 +1,6 @@
 var Game = function(){
 
+    var me = this;
     this.core = {};
     this.core.tileSize = 16;
     this.core.W = Math.floor((document.body.clientWidth - 60)/this.core.tileSize)*this.core.tileSize;
@@ -17,11 +18,19 @@ var Game = function(){
     this.core.ctx = this.core.canvas.getContext('2d');
 
     this.core.cycle = new Cycle(this);
+    this.core.controlls = new Control();
+    this.core.buttons = {};
+
+    this.core.controlls.handle = function(buttons) {
+        me.core.buttons = buttons;
+    };
+
     this.core.collision = {
         quad: new Quadtree(this.core.ctx)
     };
 
     this.entities = [];
+    this.controlledEntities = [];
 
     // anything over 2000 will start decreasing fps
 //    var BALL_AMOUNT = 50;
@@ -46,11 +55,13 @@ var Game = function(){
     this.entities.push(new Tile(this.core.ctx, 50, 200).setDimensions(250, 8));
     this.entities.push(new Tile(this.core.ctx, 200, 300).setDimensions(200, 8));
     this.entities.push(new Tile(this.core.ctx, 300, 400).setDimensions(200, 8));
-    this.entities.push(new Tile(this.core.ctx, 500, 600).setDimensions(200, 8));
+    this.entities.push(new Tile(this.core.ctx, 500, 700).setDimensions(200, 8));
+    this.entities.push(new Tile(this.core.ctx, 700, 550).setDimensions(150, 8));
 
     // add the knight
-    this.entities.push(new Knight(this.core.ctx, 75, 50).setDimensions(53, 64));
-
+    var knight = new Knight(this.core.ctx, 75, 500).setDimensions(53, 64);
+    this.entities.push(knight);
+    this.controlledEntities.push(knight);
 };
 
 Game.prototype.start = function() {
@@ -71,18 +82,25 @@ Game.prototype.doDraw = function() {
     for (var i = 0; i < this.entities.length; i++) {
         this.entities[i].draw();
     }
-    this.core.collision.quad.draw();
+    //this.core.collision.quad.draw();
 };
 
 Game.prototype.doLogic = function(delta){
 
     // set new positions
     for (let i = 0; i < this.entities.length; i++) {
+
         // set the new position
-        this.entities[i].updatePosition(delta);
+        this.entities[i].handleInput(this.core.buttons).updatePosition(delta);
+
+        // handle physics
+        if (this.entities[i].type === 'char')
+        {
+            this.entities[i].applyGravity();
+        }
     }
 
-    // handle physics
+
 
     // check colissions
     this.core.collision.quad.check(0, 0, this.core.canvas.width, this.core.canvas.height, this.entities);

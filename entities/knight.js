@@ -4,39 +4,44 @@ const Knight = function(){
     this.W = 0;
     this.H = 0;
     this.background = 'red';
-    this.animationSpeed = 5;
+    this.animationSpeed = 2;
     this.type = 'char';
     this.currentImage = 0;
     this.collissionType = 'square';
+    this.baseImgDir = 'entities/assets/characters/knight/png/';
+    this.isJumping = false;
 
-    this.Xstarted = false;
     this.animationGrid = {
         run: [
-
-            'entities/assets/characters/knight/png/Run_5.png',
-            'entities/assets/characters/knight/png/Run_6.png',
-            'entities/assets/characters/knight/png/Run_7.png',
-            'entities/assets/characters/knight/png/Run_8.png',
-            'entities/assets/characters/knight/png/Run_9.png',
-            'entities/assets/characters/knight/png/Run_10.png',
-            'entities/assets/characters/knight/png/Run_1.png',
-            'entities/assets/characters/knight/png/Run_2.png',
-            'entities/assets/characters/knight/png/Run_3.png',
-            'entities/assets/characters/knight/png/Run_4.png',
+            'Run_5.png',
+            'Run_6.png',
+            'Run_7.png',
+            'Run_8.png',
+            'Run_9.png',
+            'Run_10.png',
+            'Run_1.png',
+            'Run_2.png',
+            'Run_3.png',
+            'Run_4.png'
         ]
     };
 
     for (let i = 0 ; i < this.animationGrid.run.length; i++)
     {
-        let src = this.animationGrid.run[i];
+        let src = this.baseImgDir+this.animationGrid.run[i];
         this.animationGrid.run[i] = new Image();
         this.animationGrid.run[i].src = src;
     }
 
-    this.updatePosition = function(delta){
-
-        this.dirY = true;
-        this.AY = 1;
+    this.updatePosition = function(delta) {
+        if (this.AX >= 0)
+        {
+            this.AX -= 0.1;
+            if (this.AX <= 0)
+            {
+                this.AX = 0;
+            }
+        }
 
         // calculate the speed
         this.VX = this.AX*this.VXmax;
@@ -75,48 +80,89 @@ const Knight = function(){
                 if (
                     this.collisionEntities[i].getBoxTop() > this.getBoxTop() &&
                     this.collisionEntities[i].getBoxBottom() > this.getBoxTop() &&
-                    this.AY > 0
+                    this.collisionEntities[i].getBoxRight() > this.getBoxLeft() &&
+                    this.collisionEntities[i].getBoxLeft() < this.getBoxRight() &&
+                    this.dirY
                 ) {
                     if(!minY || minY > this.collisionEntities[i].getBoxTop())
                     {
+                        this.isJumping = false;
                         minY = this.collisionEntities[i].getBoxTop();
-                        if(! this.Xstarted)
-                        {
-                            this.AX = 0.5;
-                            this.dirX = true;
-                            this.Xstarted = true;
-                        }
                     }
-                }// boven
+                }
+                // boven
                 else if (
                     this.collisionEntities[i].getBoxBottom() < this.getBoxBottom() &&
                     this.collisionEntities[i].getBoxTop() < this.getBoxBottom() &&
-                    this.AY < 0
+                    !this.dirY
                 ) {
-                    // this.vector.Y = Math.abs(this.vector.Y);
-                }// rechts
+                    console.log('boven');
+                    this.AY = 0;
+                    this.dirY = true;
+                }
+
+                // rechts
                 if (
                     this.collisionEntities[i].getBoxRight() > this.getBoxLeft() &&
-                    this.collisionEntities[i].getBoxLeft() > this.getBoxLeft()&&
-                    this.AX > 0
+                    this.collisionEntities[i].getBoxLeft() > this.getBoxLeft() &&
+                    this.dirX
                 ) {
-                    this.dirX = false;
-                }// links
+                    console.log('rechts');
+                    this.AX = 0;
+                    this.X = this.collisionEntities[i].getBoxLeft() - this.W;
+                }
+
+                // links
                 else if (
                     this.collisionEntities[i].getBoxLeft() < this.getBoxRight() &&
                     this.collisionEntities[i].getBoxRight() < this.getBoxRight() &&
-                    this.AX > 0
+                    !this.dirX
                 ) {
-                    this.dirX = true;
+                    console.log('links');
+                    this.AX = 0;
+                    this.X = this.collisionEntities[i].getBoxLeft()
                 }
             }
         }
         this.collisionEntities = [];
-        this.Y = minY - this.H;
+        if(undefined !== minY)
+        {
+            this.Y = minY - this.H;
+        }
         this.collide = false;
     };
+
+    this.handleInput = function(buttons) {
+        if ((buttons.Space || buttons.KeyW) && !this.isJumping)
+        {
+            this.AY = 3;
+            this.dirY = false;
+            this.isJumping = true;
+        }
+
+        if(buttons.KeyA || buttons.KeyD) {
+            this.AX = 1;
+            this.dirX = buttons.KeyD;
+        }
+
+        return this;
+    }
 };
 
 // inherit from characterBase
 Knight.prototype = Rect.prototype;
 Knight.prototype.constructor = Knight;
+
+Knight.prototype.applyGravity = function() {
+    if (this.AY > 0 && !this.dirY) {
+        this.AY -= 0.2;
+        if(this.AY <= 0)
+        {
+            this.AY = 0;
+            this.dirY = true;
+        }
+    }
+    else if (this.AY < 1.5 && this.dirY) {
+        this.AY += 0.5;
+    }
+};

@@ -63,6 +63,11 @@ const EntityBase = function(ctx, x, y){
         return this;
     };
 
+    this.handleInput = function(buttons) {
+
+        return this;
+    };
+
     this.updatePosition = function(delta){
 
         // calculate the speed
