@@ -12,7 +12,7 @@ const Knight = function(){
     this.isJumping = false;
 
     this.animationGrid = {
-        run: [
+        runRight: [
             'Run_5.png',
             'Run_6.png',
             'Run_7.png',
@@ -23,15 +23,56 @@ const Knight = function(){
             'Run_2.png',
             'Run_3.png',
             'Run_4.png'
+        ],
+        runLeft: [
+            'Run_5_l.png',
+            'Run_6_l.png',
+            'Run_7_l.png',
+            'Run_8_l.png',
+            'Run_9_l.png',
+            'Run_10_l.png',
+            'Run_1_l.png',
+            'Run_2_l.png',
+            'Run_3_l.png',
+            'Run_4_l.png'
+        ],
+        jumpRight: [
+            'Jump_5.png',
+            'Jump_6.png',
+            'Jump_7.png',
+            'Jump_8.png',
+            'Jump_9.png',
+            'Jump_10.png',
+            'Jump_1.png',
+            'Jump_2.png',
+            'Jump_3.png',
+            'Jump_4.png'
+        ],
+        jumpLeft: [
+            'Jump_5_l.png',
+            'Jump_6_l.png',
+            'Jump_7_l.png',
+            'Jump_8_l.png',
+            'Jump_9_l.png',
+            'Jump_10_l.png',
+            'Jump_1_l.png',
+            'Jump_2_l.png',
+            'Jump_3_l.png',
+            'Jump_4_l.png'
         ]
     };
 
-    for (let i = 0 ; i < this.animationGrid.run.length; i++)
-    {
-        let src = this.baseImgDir+this.animationGrid.run[i];
-        this.animationGrid.run[i] = new Image();
-        this.animationGrid.run[i].src = src;
+    for(let x in this.animationGrid){
+        if (this.animationGrid.hasOwnProperty(x)){
+            for (let i = 0 ; i < this.animationGrid[x].length; i++)
+            {
+                let src = this.baseImgDir+this.animationGrid[x][i];
+                this.animationGrid[x][i] = new Image();
+                this.animationGrid[x][i].src = src;
+            }
+        }
     }
+
 
     this.updatePosition = function(delta) {
         if (this.AX >= 0)
@@ -60,9 +101,17 @@ const Knight = function(){
 
     this.draw = function(){
 
-        this.ctx.drawImage(this.animationGrid.run[Math.floor(this.currentImage++/this.animationSpeed)], this.X, this.Y, this.W, this.H);
+        var animationKey = 'run';
+        if (this.isJumping){
+            animationKey = 'jump'
+        }else if(this.VX > 0) {
+            animationKey = 'run'
+        }
+        animationKey += (this.dirX ? 'Right' : 'Left')
 
-        if (this.currentImage == ((this.animationGrid.run.length - 1) * this.animationSpeed))
+        this.ctx.drawImage(this.animationGrid[animationKey][Math.floor(this.currentImage++/this.animationSpeed)], this.X, this.Y, this.W, this.H);
+
+        if (this.currentImage == ((this.animationGrid[animationKey].length - 1) * this.animationSpeed))
         {
             this.currentImage = 0;
         }
