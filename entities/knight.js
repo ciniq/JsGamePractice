@@ -1,5 +1,5 @@
 const Knight = function(){
-    EntityBase.apply(this, arguments);
+    Rect.apply(this, arguments);
 
     this.W = 0;
     this.H = 0;
@@ -46,14 +46,8 @@ const Knight = function(){
         this.VY = this.AY*this.VYmax;
 
         // Distance = speed * delta
-        this.X += ((this.dirX ? this.VX : 0-this.VX)*delta);
-        this.Y += ((this.dirY ? this.VY : 0-this.VY)*delta);
-    };
-
-    this.setDimensions = function(width, height) {
-        this.W = width;
-        this.H = height;
-        return this;
+        this.X += Math.round((this.dirX ? this.VX : 0-this.VX)*delta);
+        this.Y += Math.round((this.dirY ? this.VY : 0-this.VY)*delta);
     };
 
     this.draw = function(){
@@ -61,6 +55,10 @@ const Knight = function(){
         var animationKey = 'idle';
         if (this.isJumping){
             animationKey = 'jump'
+            if (this.VX == 0)
+            {
+                this.currentImage = 4;
+            }
         }else if(this.VX > 0) {
             animationKey = 'run'
         }
@@ -155,23 +153,23 @@ const Knight = function(){
         }
 
         return this;
-    }
+    };
+
+    this.applyGravity = function() {
+        if (this.AY > 0 && !this.dirY) {
+            this.AY -= 0.2;
+            if(this.AY <= 0)
+            {
+                this.AY = 0;
+                this.dirY = true;
+            }
+        }
+        else if (this.AY < 1.5 && this.dirY) {
+            this.AY += 0.5;
+        }
+    };
 };
 
 // inherit from characterBase
 Knight.prototype = Rect.prototype;
 Knight.prototype.constructor = Knight;
-
-Knight.prototype.applyGravity = function() {
-    if (this.AY > 0 && !this.dirY) {
-        this.AY -= 0.2;
-        if(this.AY <= 0)
-        {
-            this.AY = 0;
-            this.dirY = true;
-        }
-    }
-    else if (this.AY < 1.5 && this.dirY) {
-        this.AY += 0.5;
-    }
-};

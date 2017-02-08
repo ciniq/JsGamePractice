@@ -5,7 +5,6 @@ var Game = function(){
     this.core.tileSize = 16;
     this.core.W = Math.floor((document.body.clientWidth - 60)/this.core.tileSize)*this.core.tileSize;
     this.core.H = Math.floor((document.body.clientHeight - 60)/this.core.tileSize)*this.core.tileSize;
-    this.core.physics = new Physics();
 
     this.core.canvas = Utils.createEl(document.body, 'canvas', {
         width: this.core.W,
@@ -32,34 +31,26 @@ var Game = function(){
     this.entities = [];
     this.controlledEntities = [];
 
-    // anything over 2000 will start decreasing fps
-//    var BALL_AMOUNT = 50;
-
-    //for(var i = 0; i < BALL_AMOUNT; i++)
-    //{
-    //    this.entities.push(new Ball(this.core.ctx, Math.floor(Math.random()*this.core.H), Math.floor(Math.random()*this.core.W)));
-    //}
-
-    // top
-    this.entities.push(new Tile(this.core.ctx, 0, 0).setDimensions(this.core.W, 8));
+    //// top
+    //this.entities.push(new Tile(this.core.ctx, 0, 0).setDimensions(this.core.W, 8));
 
     // bottom
     this.entities.push(new Tile(this.core.ctx, 0, this.core.H-8).setDimensions(this.core.W, 8));
 
-    // left
-    this.entities.push(new Tile(this.core.ctx, 0, 8).setDimensions(8, this.core.H-16));
+    //// left
+    //this.entities.push(new Tile(this.core.ctx, 0, 8).setDimensions(8, this.core.H-16));
+    //
+    //// right
+    //this.entities.push(new Tile(this.core.ctx, this.core.W-8, 8).setDimensions(8, this.core.H-16));
 
-    // right
-    this.entities.push(new Tile(this.core.ctx, this.core.W-8, 8).setDimensions(8, this.core.H-16));
-
-    this.entities.push(new Tile(this.core.ctx, 50, 200).setDimensions(250, 8));
-    this.entities.push(new Tile(this.core.ctx, 200, 300).setDimensions(200, 8));
-    this.entities.push(new Tile(this.core.ctx, 400, 550).setDimensions(200, 8));
-    this.entities.push(new Tile(this.core.ctx, 700, 625).setDimensions(150, 8));
-    this.entities.push(new Tile(this.core.ctx, 500, 700).setDimensions(200, 8));
+    this.entities.push(new Tile(this.core.ctx, 50, 200).setDimensions(250, 90));
+    //this.entities.push(new Tile(this.core.ctx, 200, 300).setDimensions(200, 8));
+    //this.entities.push(new Tile(this.core.ctx, 400, 550).setDimensions(200, 8));
+    //this.entities.push(new Tile(this.core.ctx, 700, 625).setDimensions(150, 8));
+    //this.entities.push(new Tile(this.core.ctx, 500, 700).setDimensions(200, 8));
 
     // add the knight
-    var knight = new Knight(this.core.ctx, 75, 500).setDimensions(53, 64);
+    var knight = new Knight(this.core.ctx, 75, 100).setDimensions(53, 64);
     this.entities.push(knight);
     this.controlledEntities.push(knight);
 };
@@ -82,7 +73,7 @@ Game.prototype.doDraw = function() {
     for (var i = 0; i < this.entities.length; i++) {
         this.entities[i].draw();
     }
-    //this.core.collision.quad.draw();
+    this.core.collision.quad.draw();
 };
 
 Game.prototype.doLogic = function(delta){

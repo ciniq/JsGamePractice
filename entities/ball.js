@@ -6,7 +6,49 @@ const Ball = function(){
     this.randomize();
     //this.size = 15;
 
-    return this;
+    this.resolveCollision = function() {
+        for (let i in this.collisionEntities)
+        {
+            if (this.collisionEntities.hasOwnProperty(i)) {
+                // onder
+                if (
+                    this.collisionEntities[i].getBoxTop() > this.getBoxTop() &&
+                    this.collisionEntities[i].getBoxBottom() > this.getBoxTop() &&
+                    this.AY > 0
+                ) {
+                    this.vector.Y = 0 - this.vector.Y;
+                }// boven
+                else if (
+                    this.collisionEntities[i].getBoxBottom() < this.getBoxBottom() &&
+                    this.collisionEntities[i].getBoxTop() < this.getBoxBottom() &&
+                    this.AY < 0
+                ) {
+                    this.vector.Y = Math.abs(this.vector.Y);
+                }// rechts
+                else if (
+                    this.collisionEntities[i].getBoxRight() > this.getBoxLeft() &&
+                    this.collisionEntities[i].getBoxLeft() > this.getBoxLeft()&&
+                    this.AX > 0
+                ) {
+                    this.vector.X = 0-this.vector.X;
+                }// links
+                else if (
+                    this.collisionEntities[i].getBoxLeft() < this.getBoxRight() &&
+                    this.collisionEntities[i].getBoxRight() < this.getBoxRight() &&
+                    this.AX < 0
+                ) {
+                    this.vector.X = Math.abs(this.vector.X);
+                }
+            }
+        }
+
+        this.AX = (this.vector.X/3);
+        this.AY = (this.vector.Y/3);
+
+        this.collisionEntities = [];
+        this.collide = false;
+        return this;
+    };
 };
 
 // inherit from characterBase
@@ -17,11 +59,8 @@ Ball.prototype.constructor = Ball;
  * random placement, size and speed
  */
 Ball.prototype.randomize = function(){
-    var rand = Math.round(Math.random()*10),
-        acc = rand/10;
-    acc = 0.1 >= acc ? 0.2:acc;
+    var rand = Math.round(Math.random()*10);
 
-    acc = 0.15;
     this.size = Math.round((5 * rand/10) * (rand == 0 ? 1: rand));
 
     this.setVector(Math.random() * 360);
@@ -42,5 +81,4 @@ Ball.prototype.randomize = function(){
 
     this.backgrounds = ['green', 'blue', 'purple', 'red', 'black', 'yellow', 'grey', 'brown', 'magenta', 'lightgrey'];
     this.background = (undefined !== this.backgrounds[rand]?this.backgrounds[rand]:'black');
-    this.originalBG = this.background;
 };

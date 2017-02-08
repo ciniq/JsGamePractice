@@ -8,8 +8,8 @@ const Rect = function(){
     this.collissionType = 'square';
 
     this.setDimensions = function(width, height) {
-        this.W = width;
-        this.H = height;
+        this.W = Math.round(width);
+        this.H = Math.round(height);
         return this;
     };
 
@@ -17,19 +17,8 @@ const Rect = function(){
         this.ctx.beginPath();
         this.ctx.rect(this.X,this.Y, this.W, this.H);
         this.ctx.fillStyle = this.background;
-        // this.ctx.stroke();
         this.ctx.fill();
         return this;
-    };
-
-    this.resolveCollision = function() {
-        if (this.collide && this.background == 'red')
-        {
-            var me = this;
-            this.background = 'yellow';
-            setTimeout(function(){me.background = 'red'}, 500);
-        }
-        this.collide = false;
     };
 };
 

@@ -42,21 +42,15 @@ const EntityBase = function(ctx, x, y){
         return this;
     };
 
-    this.accelerate = function(x, y){
-        if (x){
-            this.AX = (this.AX < 1 ? this.AX+0.03 : 1);
-        }
-
-        if (y){
-            this.AY = (this.AY < 1 ? this.AY+0.03 : 1);
-        }
-    };
-
     this.getCentre = function() {
         return {
-            x: this.X + (this.W/2),
-            y: this.Y + (this.H/2)
+            x: Math.round(this.X + (this.W/2)),
+            y: Math.round(this.Y + (this.H/2))
         };
+    };
+
+    this.setDimensions = function(width, height) {
+        return this;
     };
 
     this.draw = function(){
@@ -64,7 +58,6 @@ const EntityBase = function(ctx, x, y){
     };
 
     this.handleInput = function(buttons) {
-
         return this;
     };
 
@@ -75,8 +68,8 @@ const EntityBase = function(ctx, x, y){
         this.VY = this.AY*this.VYmax;
 
         // Distance = speed * delta
-        this.X += ((this.dirX ? this.VX : 0-this.VX)*delta);
-        this.Y += ((this.dirY ? this.VY : 0-this.VY)*delta);
+        this.X += Math.round((this.dirX ? this.VX : 0-this.VX)*delta);
+        this.Y += Math.round((this.dirY ? this.VY : 0-this.VY)*delta);
     };
 
     this.setCollision = function(entity) {
@@ -86,26 +79,25 @@ const EntityBase = function(ctx, x, y){
 
     this.resolveCollision = function() {
         // seeing this is a stationary target, nothing happens
+        this.collisionEntities = [];
         this.collide = false;
         return this;
     };
 
     // getters for box collision
     this.getBoxLeft = function(){
-        return this.X;
+        return Math.round(this.X);
     };
 
     this.getBoxTop = function(){
-        return this.Y;
+        return Math.round(this.Y);
     };
 
     this.getBoxRight = function(){
-        return this.X + this.W;
+        return Math.round(this.X + this.W);
     };
 
     this.getBoxBottom = function(){
-        return this.Y + this.H;
+        return Math.round(this.Y + this.H);
     };
-
-    return this;
 };
