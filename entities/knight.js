@@ -12,6 +12,8 @@ const Knight = function(){
     this.isJumping = false;
 
     this.animationGrid = {
+        idleRight: ['Idle_5.png','Idle_6.png','Idle_7.png','Idle_8.png','Idle_9.png','Idle_10.png','Idle_1.png','Idle_2.png','Idle_3.png','Idle_4.png'],
+        idleLeft: ['Idle_5_l.png','Idle_6_l.png','Idle_7_l.png','Idle_8_l.png','Idle_9_l.png','Idle_10_l.png','Idle_1_l.png','Idle_2_l.png','Idle_3_l.png','Idle_4_l.png'], 
         runRight: ['Run_5.png','Run_6.png','Run_7.png','Run_8.png','Run_9.png','Run_10.png','Run_1.png','Run_2.png','Run_3.png','Run_4.png'],
         runLeft: ['Run_5_l.png','Run_6_l.png','Run_7_l.png','Run_8_l.png','Run_9_l.png','Run_10_l.png','Run_1_l.png','Run_2_l.png','Run_3_l.png','Run_4_l.png'],
         jumpRight: ['Jump_5.png','Jump_6.png','Jump_7.png','Jump_8.png','Jump_9.png','Jump_10.png','Jump_1.png','Jump_2.png','Jump_3.png','Jump_4.png'],
@@ -28,7 +30,6 @@ const Knight = function(){
             }
         }
     }
-
 
     this.updatePosition = function(delta) {
         if (this.AX >= 0)
@@ -57,12 +58,13 @@ const Knight = function(){
 
     this.draw = function(){
 
-        var animationKey = 'run';
+        var animationKey = 'idle';
         if (this.isJumping){
             animationKey = 'jump'
         }else if(this.VX > 0) {
             animationKey = 'run'
         }
+
         animationKey += (this.dirX ? 'Right' : 'Left')
 
         this.ctx.drawImage(this.animationGrid[animationKey][Math.floor(this.currentImage++/this.animationSpeed)], this.X, this.Y, this.W, this.H);
