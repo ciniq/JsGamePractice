@@ -12,54 +12,10 @@ const Knight = function(){
     this.isJumping = false;
 
     this.animationGrid = {
-        runRight: [
-            'Run_5.png',
-            'Run_6.png',
-            'Run_7.png',
-            'Run_8.png',
-            'Run_9.png',
-            'Run_10.png',
-            'Run_1.png',
-            'Run_2.png',
-            'Run_3.png',
-            'Run_4.png'
-        ],
-        runLeft: [
-            'Run_5_l.png',
-            'Run_6_l.png',
-            'Run_7_l.png',
-            'Run_8_l.png',
-            'Run_9_l.png',
-            'Run_10_l.png',
-            'Run_1_l.png',
-            'Run_2_l.png',
-            'Run_3_l.png',
-            'Run_4_l.png'
-        ],
-        jumpRight: [
-            'Jump_5.png',
-            'Jump_6.png',
-            'Jump_7.png',
-            'Jump_8.png',
-            'Jump_9.png',
-            'Jump_10.png',
-            'Jump_1.png',
-            'Jump_2.png',
-            'Jump_3.png',
-            'Jump_4.png'
-        ],
-        jumpLeft: [
-            'Jump_5_l.png',
-            'Jump_6_l.png',
-            'Jump_7_l.png',
-            'Jump_8_l.png',
-            'Jump_9_l.png',
-            'Jump_10_l.png',
-            'Jump_1_l.png',
-            'Jump_2_l.png',
-            'Jump_3_l.png',
-            'Jump_4_l.png'
-        ]
+        runRight: ['Run_5.png','Run_6.png','Run_7.png','Run_8.png','Run_9.png','Run_10.png','Run_1.png','Run_2.png','Run_3.png','Run_4.png'],
+        runLeft: ['Run_5_l.png','Run_6_l.png','Run_7_l.png','Run_8_l.png','Run_9_l.png','Run_10_l.png','Run_1_l.png','Run_2_l.png','Run_3_l.png','Run_4_l.png'],
+        jumpRight: ['Jump_5.png','Jump_6.png','Jump_7.png','Jump_8.png','Jump_9.png','Jump_10.png','Jump_1.png','Jump_2.png','Jump_3.png','Jump_4.png'],
+        jumpLeft: ['Jump_5_l.png','Jump_6_l.png','Jump_7_l.png','Jump_8_l.png','Jump_9_l.png','Jump_10_l.png','Jump_1_l.png','Jump_2_l.png','Jump_3_l.png','Jump_4_l.png']
     };
 
     for(let x in this.animationGrid){
