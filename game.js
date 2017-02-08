@@ -73,7 +73,7 @@ Game.prototype.doDraw = function() {
     for (var i = 0; i < this.entities.length; i++) {
         this.entities[i].draw();
     }
-    this.core.collision.quad.draw();
+    //this.core.collision.quad.draw();
 };
 
 Game.prototype.doLogic = function(delta){
