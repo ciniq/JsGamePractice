@@ -7,7 +7,7 @@ var Game = function(){
     this.core.H = Math.floor(750/this.core.tileSize)*this.core.tileSize;
 
     this.core.background = new Image();
-    this.core.background.src = 'entities/assets/background.png'
+    this.core.background.src = 'entities/assets/background/normal/background.png'
 
     this.core.canvas = Utils.createEl(document.body, 'canvas', {
         width: this.core.W,

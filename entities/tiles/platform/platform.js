@@ -2,7 +2,7 @@ const Platform = function(){
     Tile.apply(this, arguments);
     this.type = 'tile';
     this.doCheckSameObject = false;
-    this.baseUrl = 'entities/tiles/platform/assets/';
+    this.baseUrl = 'entities/tiles/platform/assets/normal/';
 
     this.backgroundTypes = {
         left  : '13.png',
@@ -18,7 +18,7 @@ const Platform = function(){
     this.maxY = 0;
 
     this.updatePosition = function(delta) {
-        if (this.animate){
+        if (this.animate) {
             if (this.Y >= this.maxY) {
                 this.dirY = false;
             } else if (this.Y <= this.minY) {

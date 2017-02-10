@@ -2,7 +2,7 @@ const Floor = function(){
     Tile.apply(this, arguments);
     this.type = 'tile';
     this.doCheckSameObject = false;
-    this.baseUrl = 'entities/tiles/floor/assets/';
+    this.baseUrl = 'entities/tiles/floor/assets/normal/';
 
     this.backgroundTypes = {
         left  : '1.png',
