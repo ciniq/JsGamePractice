@@ -12,8 +12,8 @@ const FloatFloor = function(){
     this.background = new Image();
     this.background.src = this.baseUrl + this.backgroundTypes.mid;
 
-    this.H = 93;
-    this.W = 128;
+    this.H = 64;
+    this.W = 64;
 
     this.dirY = false;
 
@@ -38,19 +38,6 @@ const FloatFloor = function(){
         this.X += Math.round((this.dirX ? this.VX : 0-this.VX)*delta);
         this.Y += Math.round((this.dirY ? this.VY : 0-this.VY)*delta);
     };
-
-    this.resolveCollision = function() {
-        this.collide = false;
-        return this;
-    };
-
-    this.setAnimation = function(pxl){
-        this.animate = true;
-        this.AY = 0.2;
-        this.minY = this.Y-pxl;
-        this.maxY = this.Y;
-        return this;
-    }
 
     return this;
 };

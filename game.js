@@ -34,46 +34,50 @@ var Game = function(){
     this.entities = [];
     this.controlledEntities = [];
 
-    //// top
-    //this.entities.push(new Tile(this.core.ctx, 0, 0).setDimensions(this.core.W, 8));
-
-    // bottom
-   // this.entities.push(new Tile(this.core.ctx, 0, this.core.H-8).setDimensions(this.core.W, 8));
-
-    //// left
-    //this.entities.push(new Tile(this.core.ctx, 0, 8).setDimensions(8, this.core.H-16));
-    //
-    //// right
-    //this.entities.push(new Tile(this.core.ctx, this.core.W-8, 8).setDimensions(8, this.core.H-16));
-
-
     // water
-    this.entities.push(new Waterwave(this.core.ctx, 128, this.core.H - 99));
-    this.entities.push(new Waterwave(this.core.ctx, 256, this.core.H - 99));
-    this.entities.push(new Waterwave(this.core.ctx, 384, this.core.H - 99));
-    this.entities.push(new Waterwave(this.core.ctx, 502, this.core.H - 99));
-    this.entities.push(new Waterwave(this.core.ctx, 630, this.core.H - 99));
+    this.entities.push(new Waterwave(this.core.ctx, 128, this.core.H - 50));
+    this.entities.push(new Waterwave(this.core.ctx, 192, this.core.H - 50));
+    this.entities.push(new Waterwave(this.core.ctx, 256, this.core.H - 50));
+    this.entities.push(new Waterwave(this.core.ctx, 320, this.core.H - 50));
+    this.entities.push(new Waterwave(this.core.ctx, 384, this.core.H - 50));
+    this.entities.push(new Waterwave(this.core.ctx, 448, this.core.H - 50));
+    this.entities.push(new Waterwave(this.core.ctx, 502, this.core.H - 50));
+    this.entities.push(new Waterwave(this.core.ctx, 566, this.core.H - 50));
+    this.entities.push(new Waterwave(this.core.ctx, 630, this.core.H - 50));
+
+    this.entities.push(new Waterwave(this.core.ctx, 812, this.core.H - 50));
+    this.entities.push(new Waterwave(this.core.ctx, 876, this.core.H - 50));
+    this.entities.push(new Waterwave(this.core.ctx, 940, this.core.H - 50));
 
     // floor left
-    this.entities.push(new Floor(this.core.ctx, 0, this.core.H - 128).setType('mid'));
-    this.entities.push(new Floor(this.core.ctx, 128, this.core.H - 128).setType('right'));
+    this.entities.push(new Floor(this.core.ctx, 0, this.core.H - 64).setType('mid'));
+    this.entities.push(new Floor(this.core.ctx, 64, this.core.H - 64).setType('mid'));
+    this.entities.push(new Floor(this.core.ctx, 128, this.core.H - 64).setType('right'));
 
     // floor Right
-    this.entities.push(new Floor(this.core.ctx, 630, this.core.H - 128).setType('left'));
-    this.entities.push(new Floor(this.core.ctx, 758, this.core.H - 128).setType('mid'));
-    this.entities.push(new Floor(this.core.ctx, 886, this.core.H - 128).setType('right'));
+    this.entities.push(new Floor(this.core.ctx, 630, this.core.H - 64).setType('left'));
+    this.entities.push(new Floor(this.core.ctx, 694, this.core.H - 64).setType('mid'));
+    this.entities.push(new Floor(this.core.ctx, 758, this.core.H - 64).setType('mid'));
+    this.entities.push(new Floor(this.core.ctx, 812, this.core.H - 64).setType('right'));
+    this.entities.push(new Floor(this.core.ctx, 940, this.core.H - 64).setType('left'));
 
     // floatfloor
-    this.entities.push(new FloatFloor(this.core.ctx, 256, this.core.H - 128).setType('left').setAnimation(200));
-    this.entities.push(new FloatFloor(this.core.ctx, 384, this.core.H - 128).setType('mid').setAnimation(200));
-    this.entities.push(new FloatFloor(this.core.ctx, 502, this.core.H - 128).setType('right').setAnimation(200));
+    this.entities.push(new FloatFloor(this.core.ctx, 256, this.core.H - 64).setType('left').setAnimationY(200, 0.2));
+    this.entities.push(new FloatFloor(this.core.ctx, 320, this.core.H - 64).setType('mid').setAnimationY(200, 0.2));
+    this.entities.push(new FloatFloor(this.core.ctx, 384, this.core.H - 64).setType('mid').setAnimationY(200, 0.2));
+    this.entities.push(new FloatFloor(this.core.ctx, 448, this.core.H - 64).setType('mid').setAnimationY(200, 0.2));
+    this.entities.push(new FloatFloor(this.core.ctx, 502, this.core.H - 64).setType('right').setAnimationY(200, 0.2));
 
     // platform
-    this.entities.push(new FloatFloor(this.core.ctx, this.core.W - 256, this.core.H - 328).setType('left'));
-    this.entities.push(new FloatFloor(this.core.ctx, this.core.W - 128, this.core.H - 328).setType('mid'));
+    this.entities.push(new FloatFloor(this.core.ctx, this.core.W - 384, this.core.H - 320).setType('left'));
+    this.entities.push(new FloatFloor(this.core.ctx, this.core.W - 320, this.core.H - 320).setType('mid'));
+    this.entities.push(new FloatFloor(this.core.ctx, this.core.W - 256, this.core.H - 320).setType('mid'));
+    this.entities.push(new FloatFloor(this.core.ctx, this.core.W - 192, this.core.H - 320).setType('mid'));
+    this.entities.push(new FloatFloor(this.core.ctx, this.core.W - 128, this.core.H - 320).setType('mid'));
+    this.entities.push(new FloatFloor(this.core.ctx, this.core.W - 64, this.core.H - 320).setType('mid'));
 
     // add the knight
-    var knight = new Knight(this.core.ctx, 75, 100).setDimensions(53, 64);
+    var knight = new Knight(this.core.ctx, 75, this.core.H - 192).setDimensions(53, 64);
 
     this.entities.push(knight);
     this.controlledEntities.push(knight);
@@ -116,8 +120,6 @@ Game.prototype.doLogic = function(delta){
             this.entities[i].applyGravity();
         }
     }
-
-
 
     // check colissions
     this.core.collision.quad.check(0, 0, this.core.canvas.width, this.core.canvas.height, this.entities);

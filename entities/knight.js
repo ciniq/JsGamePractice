@@ -110,12 +110,6 @@ const Knight = function(){
         {
             this.currentImage = 0;
         }
-
-        // debug rect
-        //this.ctx.beginPath();
-        //this.ctx.rect(this.X ,this.Y , this.W , this.H );
-        //this.ctx.stroke();
-
         return this;
     };
 
@@ -138,15 +132,16 @@ const Knight = function(){
                     this.isJumping = false;
                     this.dirY = true;
                 } else if (
-                    this.getBoxTop() <= this.collisionEntities[i].getBoxTop() &&
-                    this.getBoxBottom() > this.collisionEntities[i].getBoxTop() &&
+                    this.getBoxTop() < this.collisionEntities[i].getBoxBottom() &&
+                    this.getBoxBottom() > this.collisionEntities[i].getBoxBottom() &&
                     this.getCentre().y > this.collisionEntities[i].getBoxBottom()
                 ) {
-
                     // stop the jump, and start falling
-                    this.Y = this.collisionEntities[i].getBoxBottom()
+                    this.Y = this.collisionEntities[i].getBoxBottom();
                     this.AY = 0;
                     this.dirY = true;
+                    this.isJumping = false;
+
                 } else if (
                     this.getBoxRight() >= this.collisionEntities[i].getBoxLeft() &&
                     this.getBoxLeft() < this.collisionEntities[i].getBoxLeft() &&

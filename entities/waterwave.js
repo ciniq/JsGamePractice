@@ -7,18 +7,8 @@ const Waterwave = function(){
     this.background = new Image();
     this.background.src = this.baseUrl+'17.png';
 
-    this.H = 99;
-    this.W = 128;
-
-    this.resolveCollision = function() {
-        this.collide = false;
-        return this;
-    };
-
-    this.draw = function(){
-        this.ctx.drawImage(this.background, this.X, this.Y);
-        return this;
-    };
+    this.H = 50;
+    this.W = 64;
 
     return this;
 };

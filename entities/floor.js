@@ -12,18 +12,8 @@ const Floor = function(){
     this.background = new Image();
     this.background.src = this.baseUrl + this.backgroundTypes.mid;
 
-    this.H = 128;
-    this.W = 128;
-
-    this.resolveCollision = function() {
-        this.collide = false;
-        return this;
-    };
-
-    this.draw = function(){
-        this.ctx.drawImage(this.background, this.X, this.Y);
-        return this;
-    };
+    this.H = 64;
+    this.W = 64;
 
     this.setType = function(type)
     {
