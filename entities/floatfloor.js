@@ -44,7 +44,7 @@ const FloatFloor = function(){
         return this;
     };
 
-    this.setAnimation = function(pxl){alert(pxl)
+    this.setAnimation = function(pxl){
         this.animate = true;
         this.AY = 0.2;
         this.minY = this.Y-pxl;
