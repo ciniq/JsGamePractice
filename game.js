@@ -61,12 +61,16 @@ var Game = function(){
     // floor Right
     this.entities.push(new Floor(this.core.ctx, 630, this.core.H - 128).setType('left'));
     this.entities.push(new Floor(this.core.ctx, 758, this.core.H - 128).setType('mid'));
-    this.entities.push(new Floor(this.core.ctx, 886, this.core.H - 128).setType('right'));// floor Right
+    this.entities.push(new Floor(this.core.ctx, 886, this.core.H - 128).setType('right'));
 
     // floatfloor
-    this.entities.push(new FloatFloor(this.core.ctx, 256, this.core.H - 128).setType('left'));
-    this.entities.push(new FloatFloor(this.core.ctx, 384, this.core.H - 128).setType('mid'));
-    this.entities.push(new FloatFloor(this.core.ctx, 502, this.core.H - 128).setType('right'));
+    this.entities.push(new FloatFloor(this.core.ctx, 256, this.core.H - 128).setType('left').setAnimation(200));
+    this.entities.push(new FloatFloor(this.core.ctx, 384, this.core.H - 128).setType('mid').setAnimation(200));
+    this.entities.push(new FloatFloor(this.core.ctx, 502, this.core.H - 128).setType('right').setAnimation(200));
+
+    // platform
+    this.entities.push(new FloatFloor(this.core.ctx, this.core.W - 256, this.core.H - 328).setType('left'));
+    this.entities.push(new FloatFloor(this.core.ctx, this.core.W - 128, this.core.H - 328).setType('mid'));
 
     // add the knight
     var knight = new Knight(this.core.ctx, 75, 100).setDimensions(53, 64);

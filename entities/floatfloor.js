@@ -15,17 +15,19 @@ const FloatFloor = function(){
     this.H = 93;
     this.W = 128;
 
-    this.AY = 0.5;
     this.dirY = false;
 
-    this.minY = this.Y-200;
-    this.maxY = this.Y;
+    this.animate = false;
+    this.minY = 0;
+    this.maxY = 0;
 
     this.updatePosition = function(delta) {
-        if (this.Y >= this.maxY) {
-            this.dirY = false;
-        } else if (this.Y <= this.minY) {
-            this.dirY = true;
+        if (this.animate){
+            if (this.Y >= this.maxY) {
+                this.dirY = false;
+            } else if (this.Y <= this.minY) {
+                this.dirY = true;
+            }
         }
 
         // calculate the speed
@@ -41,6 +43,14 @@ const FloatFloor = function(){
         this.collide = false;
         return this;
     };
+
+    this.setAnimation = function(pxl){alert(pxl)
+        this.animate = true;
+        this.AY = 0.2;
+        this.minY = this.Y-pxl;
+        this.maxY = this.Y;
+        return this;
+    }
 
     return this;
 };
