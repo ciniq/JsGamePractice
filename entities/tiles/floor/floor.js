@@ -2,6 +2,7 @@ const Floor = function(){
     Tile.apply(this, arguments);
     this.type = 'tile';
     this.doCheckSameObject = false;
+    this.baseUrl = 'entities/tiles/floor/assets/';
 
     this.backgroundTypes = {
         left  : '1.png',
@@ -9,20 +10,8 @@ const Floor = function(){
         right : '3.png'
     };
 
-    this.background = new Image();
-    this.background.src = this.baseUrl + this.backgroundTypes.mid;
-
     this.H = 64;
     this.W = 64;
-
-    this.setType = function(type)
-    {
-        if (undefined !== this.backgroundTypes[type]){
-            this.background = new Image();
-            this.background.src = this.baseUrl + this.backgroundTypes[type];
-        }
-        return this;
-    };
 
     return this;
 };

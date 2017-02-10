@@ -7,7 +7,7 @@ var Game = function(){
     this.core.H = Math.floor(750/this.core.tileSize)*this.core.tileSize;
 
     this.core.background = new Image();
-    this.core.background.src = 'entities/assets/tiles/freetileset/png/BG/background.png'
+    this.core.background.src = 'entities/assets/background.png'
 
     this.core.canvas = Utils.createEl(document.body, 'canvas', {
         width: this.core.W,
@@ -35,19 +35,19 @@ var Game = function(){
     this.controlledEntities = [];
 
     // water
-    this.entities.push(new Waterwave(this.core.ctx, 128, this.core.H - 50));
-    this.entities.push(new Waterwave(this.core.ctx, 192, this.core.H - 50));
-    this.entities.push(new Waterwave(this.core.ctx, 256, this.core.H - 50));
-    this.entities.push(new Waterwave(this.core.ctx, 320, this.core.H - 50));
-    this.entities.push(new Waterwave(this.core.ctx, 384, this.core.H - 50));
-    this.entities.push(new Waterwave(this.core.ctx, 448, this.core.H - 50));
-    this.entities.push(new Waterwave(this.core.ctx, 502, this.core.H - 50));
-    this.entities.push(new Waterwave(this.core.ctx, 566, this.core.H - 50));
-    this.entities.push(new Waterwave(this.core.ctx, 630, this.core.H - 50));
+    this.entities.push(new Water(this.core.ctx, 128, this.core.H - 50).setType('wave'));
+    this.entities.push(new Water(this.core.ctx, 192, this.core.H - 50).setType('wave'));
+    this.entities.push(new Water(this.core.ctx, 256, this.core.H - 50).setType('wave'));
+    this.entities.push(new Water(this.core.ctx, 320, this.core.H - 50).setType('wave'));
+    this.entities.push(new Water(this.core.ctx, 384, this.core.H - 50).setType('wave'));
+    this.entities.push(new Water(this.core.ctx, 448, this.core.H - 50).setType('wave'));
+    this.entities.push(new Water(this.core.ctx, 502, this.core.H - 50).setType('wave'));
+    this.entities.push(new Water(this.core.ctx, 566, this.core.H - 50).setType('wave'));
+    this.entities.push(new Water(this.core.ctx, 630, this.core.H - 50).setType('wave'));
 
-    this.entities.push(new Waterwave(this.core.ctx, 812, this.core.H - 50));
-    this.entities.push(new Waterwave(this.core.ctx, 876, this.core.H - 50));
-    this.entities.push(new Waterwave(this.core.ctx, 940, this.core.H - 50));
+    this.entities.push(new Water(this.core.ctx, 812, this.core.H - 50).setType('wave'));
+    this.entities.push(new Water(this.core.ctx, 876, this.core.H - 50).setType('wave'));
+    this.entities.push(new Water(this.core.ctx, 940, this.core.H - 50).setType('wave'));
 
     // floor left
     this.entities.push(new Floor(this.core.ctx, 0, this.core.H - 64).setType('mid'));
@@ -62,19 +62,19 @@ var Game = function(){
     this.entities.push(new Floor(this.core.ctx, 940, this.core.H - 64).setType('left'));
 
     // floatfloor
-    this.entities.push(new FloatFloor(this.core.ctx, 256, this.core.H - 64).setType('left').setAnimationY(200, 0.2));
-    this.entities.push(new FloatFloor(this.core.ctx, 320, this.core.H - 64).setType('mid').setAnimationY(200, 0.2));
-    this.entities.push(new FloatFloor(this.core.ctx, 384, this.core.H - 64).setType('mid').setAnimationY(200, 0.2));
-    this.entities.push(new FloatFloor(this.core.ctx, 448, this.core.H - 64).setType('mid').setAnimationY(200, 0.2));
-    this.entities.push(new FloatFloor(this.core.ctx, 502, this.core.H - 64).setType('right').setAnimationY(200, 0.2));
+    this.entities.push(new Platform(this.core.ctx, 256, this.core.H - 64).setType('left').setAnimationY(200, 0.2));
+    this.entities.push(new Platform(this.core.ctx, 320, this.core.H - 64).setType('mid').setAnimationY(200, 0.2));
+    this.entities.push(new Platform(this.core.ctx, 384, this.core.H - 64).setType('mid').setAnimationY(200, 0.2));
+    this.entities.push(new Platform(this.core.ctx, 448, this.core.H - 64).setType('mid').setAnimationY(200, 0.2));
+    this.entities.push(new Platform(this.core.ctx, 502, this.core.H - 64).setType('right').setAnimationY(200, 0.2));
 
     // platform
-    this.entities.push(new FloatFloor(this.core.ctx, this.core.W - 384, this.core.H - 320).setType('left'));
-    this.entities.push(new FloatFloor(this.core.ctx, this.core.W - 320, this.core.H - 320).setType('mid'));
-    this.entities.push(new FloatFloor(this.core.ctx, this.core.W - 256, this.core.H - 320).setType('mid'));
-    this.entities.push(new FloatFloor(this.core.ctx, this.core.W - 192, this.core.H - 320).setType('mid'));
-    this.entities.push(new FloatFloor(this.core.ctx, this.core.W - 128, this.core.H - 320).setType('mid'));
-    this.entities.push(new FloatFloor(this.core.ctx, this.core.W - 64, this.core.H - 320).setType('mid'));
+    this.entities.push(new Platform(this.core.ctx, this.core.W - 384, this.core.H - 320).setType('left'));
+    this.entities.push(new Platform(this.core.ctx, this.core.W - 320, this.core.H - 320).setType('mid'));
+    this.entities.push(new Platform(this.core.ctx, this.core.W - 256, this.core.H - 320).setType('mid'));
+    this.entities.push(new Platform(this.core.ctx, this.core.W - 192, this.core.H - 320).setType('mid'));
+    this.entities.push(new Platform(this.core.ctx, this.core.W - 128, this.core.H - 320).setType('mid'));
+    this.entities.push(new Platform(this.core.ctx, this.core.W - 64, this.core.H - 320).setType('mid'));
 
     // add the knight
     var knight = new Knight(this.core.ctx, 75, this.core.H - 192).setDimensions(53, 64);

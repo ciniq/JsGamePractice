@@ -1,7 +1,8 @@
-const FloatFloor = function(){
-    Floor.apply(this, arguments);
+const Platform = function(){
+    Tile.apply(this, arguments);
     this.type = 'tile';
     this.doCheckSameObject = false;
+    this.baseUrl = 'entities/tiles/platform/assets/';
 
     this.backgroundTypes = {
         left  : '13.png',
@@ -9,15 +10,10 @@ const FloatFloor = function(){
         right : '15.png'
     };
 
-    this.background = new Image();
-    this.background.src = this.baseUrl + this.backgroundTypes.mid;
-
     this.H = 64;
     this.W = 64;
 
     this.dirY = false;
-
-    this.animate = false;
     this.minY = 0;
     this.maxY = 0;
 
@@ -43,5 +39,5 @@ const FloatFloor = function(){
 };
 
 // inherit from Tile
-FloatFloor.prototype = Floor.prototype;
-FloatFloor.prototype.constructor = FloatFloor;
+Platform.prototype = Tile.prototype;
+Platform.prototype.constructor = Platform;

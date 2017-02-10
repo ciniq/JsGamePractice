@@ -4,8 +4,10 @@ const Tile = function(){
     this.type = 'tile';
     this.background = undefined;
     this.doCheckSameObject = false;
-    this.baseUrl = 'entities/assets/tiles/freetileset/png/Tiles/';
+    this.baseUrl = '';
     this.animate = false;
+
+    this.backgroundTypes = {};
 
     this.resolveCollision = function() {
         this.collide = false;
@@ -33,8 +35,16 @@ const Tile = function(){
         this.minY = this.Y-pxl;
         this.maxY = this.Y;
         return this;
-    }
+    };
 
+    this.setType = function(type)
+    {
+        if (undefined !== this.backgroundTypes[type]){
+            this.background = new Image();
+            this.background.src = this.baseUrl + this.backgroundTypes[type];
+        }
+        return this;
+    };
 
     return this;
 };

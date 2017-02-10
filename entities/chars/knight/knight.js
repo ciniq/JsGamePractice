@@ -8,7 +8,7 @@ const Knight = function(){
     this.type = 'char';
     this.currentImage = 0;
     this.collissionType = 'square';
-    this.baseImgDir = 'entities/assets/characters/knight/png/';
+    this.baseImgDir = 'entities/chars/knight/assets/';
     this.isJumping = false;
     this.canJump = true;
 
@@ -17,14 +17,14 @@ const Knight = function(){
             src     : ['Idle_5.png','Idle_6.png','Idle_7.png','Idle_8.png','Idle_9.png','Idle_10.png','Idle_1.png','Idle_2.png','Idle_3.png','Idle_4.png'],
             offsetX : 4,
             offsetY : 3,
-            offsetW : 12,
+            offsetW : 10,
             offsetH : 8
         },
         idleLeft: {
             src     : ['Idle_5_l.png','Idle_6_l.png','Idle_7_l.png','Idle_8_l.png','Idle_9_l.png','Idle_10_l.png','Idle_1_l.png','Idle_2_l.png','Idle_3_l.png','Idle_4_l.png'],
             offsetX : 8,
             offsetY : 3,
-            offsetW : 11,
+            offsetW : 9,
             offsetH : 8
         },
         runRight: {
@@ -148,14 +148,14 @@ const Knight = function(){
                     this.getCentre().x < this.collisionEntities[i].getBoxLeft()
                 ) {
 
-                    this.X = this.collisionEntities[i].getBoxLeft() - this.W -1;
+                    this.X = this.collisionEntities[i].getBoxLeft() - this.W;
                     this.AX = 0;
                 } else if (
                     this.getBoxLeft() <= this.collisionEntities[i].getBoxRight() &&
                     this.getBoxRight() > this.collisionEntities[i].getBoxRight() &&
                     this.getCentre().x > this.collisionEntities[i].getBoxRight()
                 ) {
-                    this.X = this.collisionEntities[i].getBoxRight() +1;
+                    this.X = this.collisionEntities[i].getBoxRight();
                     this.AX = 0
                 }
             }
@@ -190,7 +190,7 @@ const Knight = function(){
                 this.dirY = true;
             }
         }
-        else if (this.AY < 1.5 && this.dirY) {
+        else if (this.AY < 2 && this.dirY) {
             this.AY += 0.5;
         }
     };
