@@ -148,14 +148,14 @@ const Knight = function(){
                     this.getCentre().x < this.collisionEntities[i].getBoxLeft()
                 ) {
 
-                    this.X = this.collisionEntities[i].getBoxLeft() - this.W;
+                    this.X = this.collisionEntities[i].getBoxLeft() - this.W -1;
                     this.AX = 0;
                 } else if (
                     this.getBoxLeft() <= this.collisionEntities[i].getBoxRight() &&
                     this.getBoxRight() > this.collisionEntities[i].getBoxRight() &&
                     this.getCentre().x > this.collisionEntities[i].getBoxRight()
                 ) {
-                    this.X = this.collisionEntities[i].getBoxRight();
+                    this.X = this.collisionEntities[i].getBoxRight() +1;
                     this.AX = 0
                 }
             }

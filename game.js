@@ -76,6 +76,9 @@ var Game = function(){
     this.entities.push(new Platform(this.core.ctx, this.core.W - 128, this.core.H - 320).setType('mid'));
     this.entities.push(new Platform(this.core.ctx, this.core.W - 64, this.core.H - 320).setType('mid'));
 
+    // objects
+    this.entities.push(new BaseObject(this.core.ctx, this.core.W - 256, this.core.H - 600).setType('tree3'));
+
     // add the knight
     var knight = new Knight(this.core.ctx, 75, this.core.H - 192).setDimensions(53, 64);
 
