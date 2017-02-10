@@ -35,7 +35,7 @@ var Game = function(){
     //this.entities.push(new Tile(this.core.ctx, 0, 0).setDimensions(this.core.W, 8));
 
     // bottom
-    this.entities.push(new Tile(this.core.ctx, 0, this.core.H-8).setDimensions(this.core.W, 8));
+   // this.entities.push(new Tile(this.core.ctx, 0, this.core.H-8).setDimensions(this.core.W, 8));
 
     //// left
     //this.entities.push(new Tile(this.core.ctx, 0, 8).setDimensions(8, this.core.H-16));
@@ -43,7 +43,9 @@ var Game = function(){
     //// right
     //this.entities.push(new Tile(this.core.ctx, this.core.W-8, 8).setDimensions(8, this.core.H-16));
 
-    this.entities.push(new Tile(this.core.ctx, 50, 200).setDimensions(250, 90));
+    this.entities.push(new Tile(this.core.ctx, 50, 200).setDimensions(250, 1));
+    this.entities.push(new Tile(this.core.ctx, 400, 100).setDimensions(250, 1));
+    this.entities.push(new Tile(this.core.ctx, 150, 120).setDimensions(1, 80));
     //this.entities.push(new Tile(this.core.ctx, 200, 300).setDimensions(200, 8));
     //this.entities.push(new Tile(this.core.ctx, 400, 550).setDimensions(200, 8));
     //this.entities.push(new Tile(this.core.ctx, 700, 625).setDimensions(150, 8));

@@ -75,17 +75,19 @@ const Collision = {
     },
 
     box2box: function(square1, square2) {
-        if(
-            (square1.getBoxLeft() > square2.getBoxLeft() && square1.getBoxLeft() < square2.getBoxRight()) ||
-            (square1.getBoxRight() < square2.getBoxRight() && square1.getBoxRight() > square2.getBoxLeft())
-        ) {
-             if(
-                (square1.getBoxTop() > square2.getBoxTop() && square1.getBoxTop() < square2.getBoxBottom()) ||
-                (square1.getBoxBottom() < square2.getBoxBottom() && square1.getBoxBottom() > square2.getBoxTop())
-            ) {
-                return true;
-            }
+
+        if (square1.getBoxLeft() > square2.getBoxRight() ||
+            square1.getBoxRight() < square2.getBoxLeft()
+        ){
+            return false;
         }
-        return false;
+
+        if (square1.getBoxBottom() < square2.getBoxTop() ||
+            square1.getBoxTop() > square2.getBoxBottom()
+        ){
+            return false;
+        }
+
+        return true;
     }
 };

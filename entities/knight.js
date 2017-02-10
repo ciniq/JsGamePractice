@@ -16,7 +16,7 @@ const Knight = function(){
             src     : ['Idle_5.png','Idle_6.png','Idle_7.png','Idle_8.png','Idle_9.png','Idle_10.png','Idle_1.png','Idle_2.png','Idle_3.png','Idle_4.png'],
             offsetX : 4,
             offsetY : 3,
-            offsetW : 11,
+            offsetW : 12,
             offsetH : 8
         },
         idleLeft: {
@@ -125,61 +125,109 @@ const Knight = function(){
         {
             if(this.collisionEntities.hasOwnProperty(i))
             {
-                // onder
                 if (
-                    this.collisionEntities[i].getBoxTop() > this.getBoxTop() &&
-                    this.collisionEntities[i].getBoxBottom() > this.getBoxTop() &&
-                    this.collisionEntities[i].getBoxRight() > this.getBoxLeft() &&
-                    this.collisionEntities[i].getBoxLeft() < this.getBoxRight() &&
-                    this.dirY
+                    this.getBoxBottom() > this.collisionEntities[i].getBoxTop() &&
+                    this.getBoxTop() < this.collisionEntities[i].getBoxTop() &&
+                    this.getCentre().y < this.collisionEntities[i].getBoxTop()
                 ) {
-                    if(!minY || minY > this.collisionEntities[i].getBoxTop())
-                    {
-                        this.isJumping = false;
-                        minY = this.collisionEntities[i].getBoxTop();
-                    }
+                    //console.log('onder')
+                    this.Y = this.collisionEntities[i].getBoxTop() - this.H - 1;
+                    this.AY = 0;
+                    this.isJumping = false;
                 }
-                // boven
                 else if (
-                    this.collisionEntities[i].getBoxBottom() < this.getBoxBottom() &&
-                    this.collisionEntities[i].getBoxTop() < this.getBoxBottom() &&
-                    !this.dirY
+                    this.getBoxTop() < this.collisionEntities[i].getBoxTop() &&
+                    this.getBoxBottom() > this.collisionEntities[i].getBoxTop() &&
+                    this.getCentre().y > this.collisionEntities[i].getBoxBottom()
                 ) {
-                    console.log('boven');
+                    //console.log('boven')
+                    // stop the jump, and start falling
+                    this.Y = this.collisionEntities[i].getBoxBottom() + 1
                     this.AY = 0;
                     this.dirY = true;
                 }
-
-                // rechts
-                if (
-                    this.collisionEntities[i].getBoxRight() > this.getBoxLeft() &&
-                    this.collisionEntities[i].getBoxLeft() > this.getBoxLeft() &&
-                    this.dirX
-                ) {
-                    console.log('rechts');
-                    this.AX = 0;
-                    this.X = this.collisionEntities[i].getBoxLeft() - this.W;
-                    this.dirY = true;
-                }
-
-                // links
                 else if (
-                    this.collisionEntities[i].getBoxLeft() < this.getBoxRight() &&
-                    this.collisionEntities[i].getBoxRight() < this.getBoxRight() &&
-                    !this.dirX
+                    this.getBoxRight() > this.collisionEntities[i].getBoxLeft() &&
+                    this.getBoxLeft() < this.collisionEntities[i].getBoxLeft() &&
+                    this.getCentre().x < this.collisionEntities[i].getBoxLeft()
+
                 ) {
-                    console.log('links');
+                    //console.log('rechts')
+                    this.X = this.collisionEntities[i].getBoxLeft() - this.W - 1;
                     this.AX = 0;
-                    this.X = this.collisionEntities[i].getBoxRight()
-                    this.dirY = true;
                 }
+                else if (
+                    this.getBoxLeft() < this.collisionEntities[i].getBoxRight() &&
+                    this.getBoxRight() > this.collisionEntities[i].getBoxRight() &&
+                    this.getCentre().x > this.collisionEntities[i].getBoxRight()
+                ) {
+                    //console.log('links')
+                    this.X = this.collisionEntities[i].getBoxRight() + 1;
+                    this.AX = 0
+                }
+
+
+
+
+
+                //// collision onderkant
+                //if (
+                //    this.collisionEntities[i].getBoxBottom() < this.getBoxBottom() &&
+                //    this.collisionEntities[i].getBoxTop() < this.getBoxBottom() &&
+                //    !(this.collisionEntities[i].getBoxRight() < this.getBoxLeft()) &&
+                //    !(this.collisionEntities[i].getBoxLeft() > this.getBoxRight()) &&
+                //    this.dirY
+                //) {
+                //    if(!minY || minY > this.collisionEntities[i].getBoxTop())
+                //    {
+                //        this.isJumping = false;
+                //        minY = this.collisionEntities[i].getBoxTop();
+                //    }
+                //}
+                //// Collision bovenkant
+                //else if (
+                //    this.collisionEntities[i].getBoxTop() > this.getBoxTop() &&
+                //    !(this.collisionEntities[i].getBoxRight() < this.getBoxLeft()) &&
+                //    !(this.collisionEntities[i].getBoxLeft() > this.getBoxRight()) &&
+                //    !this.dirY
+                //) {
+                //    // stop the jump, and start falling
+                //    this.AY = 0;
+                //    this.dirY = true;
+                //}
+                //
+                //// Collision rechterkant
+                //else if (
+                //    this.collisionEntities[i].getBoxRight() > this.getBoxRight() &&
+                //    !(this.collisionEntities[i].getBoxBottom() < this.getBoxTop()) &&
+                //    !(this.collisionEntities[i].getBoxTop() > this.getBoxBottom()) &&
+                //    this.dirX
+                //) {
+                //    console.log('rechts')
+                //    this.AX = 0;
+                //    this.X = this.collisionEntities[i].getBoxLeft() - this.W;
+                //    this.dirY = true;
+                //}
+                //
+                //// Collision linkerkant
+                //else if (
+                //    this.collisionEntities[i].getBoxLeft() < this.getBoxLeft() &&
+                //    !(this.collisionEntities[i].getBoxBottom() < this.getBoxTop()) &&
+                //    !(this.collisionEntities[i].getBoxTop() > this.getBoxBottom()) &&
+                //    !this.dirX
+                //) {
+                //    console.log('links')
+                //    this.AX = 0;
+                //    this.X = this.collisionEntities[i].getBoxRight()
+                //    this.dirY = true;
+                //}
             }
         }
         this.collisionEntities = [];
-        if(undefined !== minY)
-        {
-            this.Y = minY - this.H;
-        }
+        //if(undefined !== minY)
+        //{
+        //    this.Y = minY - this.H;
+        //}
         this.collide = false;
     };
 
