@@ -4,6 +4,7 @@ const EntityBase = function(ctx, x, y){
     this.id = Utils.createId();
     this.type = undefined;
     this.collissionType = undefined;
+    this.doCheckSameObject = true;
     this.X = x;
     this.Y = y;
     this.size = 0;

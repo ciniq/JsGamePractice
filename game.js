@@ -3,8 +3,11 @@ var Game = function(){
     var me = this;
     this.core = {};
     this.core.tileSize = 16;
-    this.core.W = Math.floor((document.body.clientWidth - 60)/this.core.tileSize)*this.core.tileSize;
-    this.core.H = Math.floor((document.body.clientHeight - 60)/this.core.tileSize)*this.core.tileSize;
+    this.core.W = Math.floor(1000/this.core.tileSize)*this.core.tileSize;
+    this.core.H = Math.floor(750/this.core.tileSize)*this.core.tileSize;
+
+    this.core.background = new Image();
+    this.core.background.src = 'entities/assets/tiles/freetileset/png/BG/background.png'
 
     this.core.canvas = Utils.createEl(document.body, 'canvas', {
         width: this.core.W,
@@ -43,16 +46,31 @@ var Game = function(){
     //// right
     //this.entities.push(new Tile(this.core.ctx, this.core.W-8, 8).setDimensions(8, this.core.H-16));
 
-    this.entities.push(new Tile(this.core.ctx, 50, 200).setDimensions(250, 1));
-    this.entities.push(new Tile(this.core.ctx, 400, 100).setDimensions(250, 1));
-    this.entities.push(new Tile(this.core.ctx, 150, 120).setDimensions(1, 80));
-    //this.entities.push(new Tile(this.core.ctx, 200, 300).setDimensions(200, 8));
-    //this.entities.push(new Tile(this.core.ctx, 400, 550).setDimensions(200, 8));
-    //this.entities.push(new Tile(this.core.ctx, 700, 625).setDimensions(150, 8));
-    //this.entities.push(new Tile(this.core.ctx, 500, 700).setDimensions(200, 8));
+
+    // water
+    this.entities.push(new Waterwave(this.core.ctx, 128, this.core.H - 99));
+    this.entities.push(new Waterwave(this.core.ctx, 256, this.core.H - 99));
+    this.entities.push(new Waterwave(this.core.ctx, 384, this.core.H - 99));
+    this.entities.push(new Waterwave(this.core.ctx, 502, this.core.H - 99));
+    this.entities.push(new Waterwave(this.core.ctx, 630, this.core.H - 99));
+
+    // floor left
+    this.entities.push(new Floor(this.core.ctx, 0, this.core.H - 128).setType('mid'));
+    this.entities.push(new Floor(this.core.ctx, 128, this.core.H - 128).setType('right'));
+
+    // floor Right
+    this.entities.push(new Floor(this.core.ctx, 630, this.core.H - 128).setType('left'));
+    this.entities.push(new Floor(this.core.ctx, 758, this.core.H - 128).setType('mid'));
+    this.entities.push(new Floor(this.core.ctx, 886, this.core.H - 128).setType('right'));// floor Right
+
+    // floatfloor
+    this.entities.push(new FloatFloor(this.core.ctx, 256, this.core.H - 128).setType('left'));
+    this.entities.push(new FloatFloor(this.core.ctx, 384, this.core.H - 128).setType('mid'));
+    this.entities.push(new FloatFloor(this.core.ctx, 502, this.core.H - 128).setType('right'));
 
     // add the knight
     var knight = new Knight(this.core.ctx, 75, 100).setDimensions(53, 64);
+
     this.entities.push(knight);
     this.controlledEntities.push(knight);
 };
@@ -71,11 +89,13 @@ Game.prototype.doDraw = function() {
     // clear the canvas
     this.core.ctx.clearRect(0,0,this.core.W, this.core.H);
 
+    // draw the background
+    this.core.ctx.drawImage(this.core.background, 0, 0);
+
     // draw each item
     for (var i = 0; i < this.entities.length; i++) {
         this.entities[i].draw();
     }
-    //this.core.collision.quad.draw();
 };
 
 Game.prototype.doLogic = function(delta){

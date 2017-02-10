@@ -31,6 +31,12 @@ const Collision = {
     },
 
     collision: function(item1, item2) {
+        // don't check tile on tile
+        if(!item1.doCheckSameObject && !item2.doCheckSameObject)
+        {
+            return false;
+        }
+
         if(item1.collissionType === 'circle') {
             if(item2.collissionType == 'circle') {
                 return this.circle2circle(item1, item2);
@@ -75,7 +81,6 @@ const Collision = {
     },
 
     box2box: function(square1, square2) {
-
         if (square1.getBoxLeft() > square2.getBoxRight() ||
             square1.getBoxRight() < square2.getBoxLeft()
         ){

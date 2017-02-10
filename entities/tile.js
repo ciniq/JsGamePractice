@@ -2,13 +2,11 @@ const Tile = function(){
     Rect.apply(this, arguments);
 
     this.type = 'tile';
-    this.background = 'red';
+    this.background = 'black';
+    this.doCheckSameObject = false;
+    this.baseUrl = 'entities/assets/tiles/freetileset/png/Tiles/';
 
     this.resolveCollision = function() {
-        if (this.collide)
-        {
-            this.background = (this.background == 'red' ? 'yellow' : 'red');
-        }
         this.collide = false;
         return this;
     };
