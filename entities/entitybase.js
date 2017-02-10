@@ -10,6 +10,7 @@ const EntityBase = function(ctx, x, y){
     this.size = 0;
     this.vector = {X:0,Y:0};
     this.collide = false;
+    this.collidable = true;
     this.collisionEntities = {};
 
     // acceleration

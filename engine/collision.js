@@ -32,7 +32,10 @@ const Collision = {
 
     collision: function(item1, item2) {
         // don't check tile on tile
-        if(!item1.doCheckSameObject && !item2.doCheckSameObject)
+        if(
+            (!item1.doCheckSameObject && !item2.doCheckSameObject) ||
+            (!item1.collidable || !item2.collidable)
+        )
         {
             return false;
         }
